@@ -15,7 +15,6 @@ This repo contains material about the following course:
 ## Content
 You can find the following material in the repo:
 * Codici/ - R and MATLAB code used for the daily exercises of the course.
-* Dispensa Probabilità, Dispensa Probabilità e Stastica - official material provided by the professor.
 
 ## Contribute
 Feel free to contribute by forking the project and issuing a pull request.
