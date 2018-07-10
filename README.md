@@ -8,7 +8,7 @@ This repo contains material about the following course:
 
 **Teacher**: prof. Claudio Agostinelli
 
-**Course**: Informatica (BCs)
+**Course**: Informatica (Bachelor)
 
 **University**: Trento
 
