@@ -1,0 +1,276 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{mathcomp}
+\usepackage[italian]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{setspace}
+
+\newcounter{numeroes}[section]
+\newcounter{requestcounter}
+
+\DeclareUnicodeCharacter{2212}{\textminus}
+
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+	
+\newtheorem{theorem}{Esercizio}
+%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+
+\title{Dispense di tutorato - Calcolo delle probabilità}
+\author{Matteo Franzil}
+\maketitle
+
+\section{Formule utilizzate negli esercizi}
+
+$$
+{n \choose k} = \frac{n!}{((n-r)! \cdot r!}
+$$
+$$
+C_{\text{n, r}} = \frac{D_{\text{n, r}}}{P_r}
+$$
+
+In queste dispense il simbolo $\blacksquare$ denota la fine di un esercizio, $\square$ la fine di un sotto-punto. La notazione ${a \choose b}$ rappresenta una combinazione.
+
+\section{Esercizi}
+
+\begin{theorem}[ex. Esercizio 11]
+12 gettoni numerati vengono consegnati casualmente, uno alla volta, ad altrettante persone. Meravigliando tutti sono assegnati secondo l'ordine crescente dei numeri che li distingue. Quale è la probabilità di un simile evento?
+\end{theorem}
+
+\begin{proof}
+La probabilità che la permutazione dei gettoni $[1, 2...12]$ avvenga è esattamente la stessa di una qualunque altra permutazione di gettoni. In altre parole, la probabilità è pari a $\frac{1}{12!}$, dove $12!$ corrisponde a tutte le permutazioni possibili dei gettoni. E' possibile vedere questa soluzione in un altro modo: quando assegno il gettone alla prima persona, ho $P = \frac{1}{12}$ di assegnarle il gettone numerato $1$. Alla seconda persona, ora ho $P =\frac{1}{11}$ di assegnarle il gettone $2$. E così via, ottenendo quindi che la probabilità finale sarà pari a 
+
+$$\frac{1}{12} \cdot \frac{1}{11} \cdot \frac{1}{10} \cdot \cdots \cdot 1 = \frac{1}{12!}
+$$
+
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 14]
+Se si distribuiscono 40 carte a 4 giocatori, quali sono le possibili diverse assegnazioni?
+\end{theorem}
+
+\begin{proof}
+In questo caso, l'ordine delle carte non ci importa in quanto viene valutato soltanto l'intero mazzo di 10 carte che riceve ogni singolo giocatore. Inoltre, assumiamo che tutte le carte siano diverse. Allora al primo giocatore possiamo dare ${40 \choose 10}$ carte; al secondo  e rimangono 30, quindi ${30 \choose 10}$; idem per gli altri 2, ${20 \choose 10}$ e ${10 \choose 10}$ = 1. Questi risultati vanno moltiplicati tra loro:
+
+$$
+{40 \choose 10} \cdot {30 \choose 10} \cdot {20 \choose 10} = 
+\frac{40!}{30! \cdot 10!} \cdot \frac{30!}{20! \cdot 10!} \cdot \frac{20!}{10! \cdot 10!} = 4,705 \cdot 10^{21} 
+$$
+
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 15]
+Una mano a poker è formata da 5 carte. Abbiamo una scala semplice se le carte hanno valori distinti e consecutivi e non hanno tutte il medesimo seme. per esempio, una mano che consista del cinque di picche, sei di picche, sette di picche, otto di picche e nove di cuori è una scala semplice. Quale è la probabilità che uno riceva una scala semplice.
+\end{theorem}
+
+\begin{proof}
+Prima di tutto calcoliamo tutte le combinazioni possibili di mani da poker, composte da 5 carte: ${52 \choose 5} = 2598960$. Successivamente, calcoliamo le combinazioni a noi favorevoli. 
+
+La prima carta la possiamo scegliere in 10 modi, contando il fatto che l'asso può essere inserito sia all'inizio che alla fine. Ecco una rappresentazione visiva delle possibili scale (lasciando perdere il seme):
+
+\begin{verbatim}
+    A    2    3    4    5    
+    2    3    4    5    6
+    3    4    5    6    7
+    4    5    6    7    8
+    5    6    7    8    9
+    6    7    8    9    10
+    7    8    9    10   J
+    8    9    10   J    Q
+    9    10   J    Q    K
+    10   J    Q    K    A
+\end{verbatim}
+
+Guardando la prima riga, possiamo notare come la prima carta debba essere necessariamente essere una dall'asso al 10, in quanto le scale "a cavallo" tra i numeri non sono consentiti. Una volta scelta la prima carta, la seconda carta - non importandoci il seme - possiamo sceglierla in 4 modi diversi. Stessa solfa per la terza, e per la quarta carta. Abbiamo finora quindi:
+
+$$\frac{10 \cdot 4^5}{2598960}$$
+
+Vi è però una minuziosità nel testo dell'esercizio, facilmente trascurabile se uno non conosce bene il gioco del poker o non interpreta alla lettera quanto scritto. Il fatto che le carte non debbano avere tutto lo stesso seme non è tenuto in conto nel nostro conto precedente: infatti, quando tutte le carte sono dello stesso seme la scala si dice scala reale. Le possibili scale reali sono 40. E' facile visualizzare il perché di questo numero, osservando la figura sopra mostrante tutte le possibili scale. Se immaginiamo che quella figura rappresenti soltanto le scale con carte tutte dello stesso seme e la moltiplichiamo per 4, otteniamo 40. Il conto finale ammonta quindi a:
+
+$$\frac{10 \cdot 4^5 - 40}{2598960} = 0,0039$$
+
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 20]
+Supponiamo di dover selezionare a caso 5 persone da un gruppo di 20 individui formato da 10 coppie sposate e che si sia interessati a calcolare la probabilità che i cinque individui selezionati non siano in relazione tra loro, ovvero che non ce ne siano due tra loro sposati?
+\end{theorem}
+
+\begin{proof}
+Calcoliamo tutte le possibili combinazioni di 5 persone scelte da un gruppo di 20 individui: ${20 \choose 5} = 15504$.
+
+Calcoliamo ora le combinazioni a noi favorevoli. La prima persona la possiamo scegliere in 20 modi diversi. Una volta scelta la prima persona, siamo necessariamente vincolati a non scegliere il "coniuge". Ci rimangono quindi 18 persone da scegliere per la persona successiva, 16 per quella dopo, e così via. Otteniamo quindi $20 \cdot 18 \cdot 16 \cdot 14 \cdot 12$. Tuttavia, dobbiamo necessariamente dividere questo numero per tutte le permutazioni possibili di 5 persone, ovvero 5!. In formula:
+
+$$\frac{\frac{20 \cdot 18 \cdot 16 \cdot 14 \cdot 12}{5!}}{ 15504} = \frac{168}{323}$$
+
+Nota bene: vi sono svariati modi di risolvere questo esercizio: usando le disposizioni, le combinazioni, o un po' e un po' (come qua sopra). In generale, molti esercizi ammettono più ragionamenti che vanno benissimo finché si spiega perché si è fatta una scelta piuttosto che un'altra. Ripeterlo a parole aiuta tantissimo (per inciso, ha aiutato me mentre scrivevo queste dispense). 
+\end{proof}
+
+\begin{theorem}[ex. Esercizio A]
+Mario ha 8 amici e vuole invitarne 5 a cena. In quanti modi può farlo se sa che due amici sono una coppia e devono essere invitati assieme? 
+\end{theorem}
+
+\begin{proof}
+Consideriamo prima il caso in cui nessuno dei due amici della coppia verrà invitato. Allora in quel caso avremo ${6 \choose 5}$ possibili combinazioni. Se dobbiamo necessariamente invitare entrambi gli amici, invece, rimarremo con ${6 \choose 3}$ combinazioni. In formula:
+
+$${6 \choose 5} + {6 \choose 3} = 26$$
+
+\end{proof}
+
+\begin{theorem}[ex. Esercizio A parte 2]
+Supponendo Mario sia italiano e i suoi 8 amici siano 4 italiani, 2 cinesi e 2 americani. Sempre volendo invitarne 5 a cena, in quanti modi può farlo se:
+\begin{enumerate}
+    \item vuole una cena multietnica?
+    \item vuole che ogni invitato abbia almeno una persona presente alla cena (lui incluso) che parla la sua lingua? [Questo punto è separato dal precedente, quindi la cena non deve necessariamente essere multietnica.]
+\end{enumerate}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1.]
+i) Affinché la cena possa essere multietnica, è sufficiente che venga invitato sia un americano sia un cinese. Per arrivare al risultato, calcoliamo le permutazioni totali e sottraiamo le "cene non multietniche".
+
+\begin{itemize}
+\item permutazioni totali: ${8 \choose 5}$ = 56
+\item cene senza italiani: 0, Mario è italiano
+\item cene con solo un cinese o solo un americano, ma non entrambi: 4. Gli italiani verranno per forza scelti tutti, l'ultimo slot può essere occupato da uno dei cinesi o degli americani:
+\end{itemize}
+
+\begin{verbatim}
+   I I I I C1
+   I I I I C2
+   I I I I A1
+   I I I I A2
+\end{verbatim}
+
+\begin{itemize}
+     \item cene con entrambi i cinesi o entrambi gli americani: in questo caso gli italiani scelti rimanenti saranno 3, quindi dobbiamo contarne le combinazioni sia nel caso in cui prendiamo entrambi gli americani, sia in quello in cui prendiamo entrambi i cinesi:
+\end{itemize}
+
+\begin{verbatim}
+   ? ? ? A1 A2
+   ? ? ? C1 C2
+\end{verbatim}
+
+Per entrambi i casi, avremo ${4 \choose 3}$ combinazioni.
+
+Il totale di combinazioni NON legali è quindi $4 + 4 + 4 = 12$. Abbiamo quindi $56 - 12 = 44$ cene multietniche. \end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2.]
+Partiamo dal presupposto che, per necessità di numeri, Mario avrà per forza un invitato italiano: i 2 americani e 2 cinesi non bastano a coprire i 5 slot previsti a cena. Possiamo quindi intraprendere varie scelte:
+
+\begin{itemize}
+     \item invitare sia la coppia di americani che quella di cinesi: 4 scelte possibili (gli italiani rimanenti)
+     \item invitare solo la coppia di americani: ${4 \choose 3}$ modi possibili (devo per forza scegliere dagli italiani, non posso invitare solo un cinese)
+     \item invitare solo la coppia di cinesi: ${4 \choose 3}$
+\end{itemize}
+
+Tutto ciò ammonta a $4 + 4 + 4 = 12$  modi possibili.
+
+\end{proof}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{theorem}[ex. Esercizio 5]
+Si consideri un mazzo di 40 carte (10 carte distinte per ciascuno dei quattro semi).
+
+\begin{enumerate}
+    \item Quanti insiemi di 5 carte si possono avere?
+    \item Quanti insiemi di 5 carte possono avere 4 assi?
+    \item Quanti insiemi di 5 carte possono avere 4 carte di uguale valore?
+    \item Quanti insiemi di 5 carte possono avere 2 assi?
+    \item Quanti insiemi di 5 carte possono avere almeno 2 assi?
+    \item Quanti insiemi di 5 carte possono avere due coppie di carte di uguale valore, ma distinte fra loro?
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Punto 1.]
+In questo caso è sufficiente calcolare la combinazione di 5 carte scelte da un mazzo di 40: ${40 \choose 5}$ = 658008
+\end{proof}
+
+\begin{proof}[Punto 2.]
+La nostra mano ha il seguente aspetto:
+
+\begin{verbatim}
+     A1 A2 A3 A4 ?
+\end{verbatim}
+
+dove \verb=A1, A2, A3, A4= sono gli unici quattro assi del mazzo. Dobbiamo decidere quale è la quinta carta, ma non avendo vincoli possiamo scegliere una qualunque delle 36 carte rimanenti. 
+\end{proof}
+
+\begin{proof}[Punto 3.]
+Questo è equivalente all'esercizio equivalente, ma ci viene chiesto di contare tutte le mani con quattro carte di uguale valore. Allora moltiplichiamo 36 per tutte e 10 le carte possibili del mazzo. $36 \cdot 10 = 360$
+\end{proof}
+
+\begin{proof}[Punto 4.]
+Procediamo ora utilizzando la definizione di combinazione, ovvero prima calcoliamo le disposizioni possibili delle carte e poi dividiamo il risultato per le permutazioni possibili. In realtà questo approccio è sempre possibile, ma certe volte risulta più intuitivo di altre]. La prima carta possiamo sceglierla dai 4 assi possibili, la seconda dai tre assi rimanenti. La terza ora va scelta da tutte le carte rimaste, tranne (IMPORTANTE) non gli assi rimanenti. Idem per la quarta e la quinta. 
+Otteniamo $4 \cdot 3 \cdot 36 \cdot 35 \cdot 34$, dove andiamo a dividere per $2!$ (le permutazioni dei due assi) e $3!$ (le permutazioni delle tre carte rimanenti):
+
+$$
+\frac{4\cdot3}{2!}\cdot\frac{36\cdot35\cdot34}{3!} = 42840
+$$
+\end{proof}
+
+\begin{proof}[Punto 5.] 
+Questo esercizio può essere apparentemente risolto in maniera simile al precedente, contando il fatto che una volta scelti i $4 \cdot 3$ assi delle altre carte ce ne frega ben poco e possiamo sceglierle a piacere:
+
+$$
+\frac{4\cdot3}{2!}\cdot\frac{38\cdot37\cdot36}{3!} = 50616
+$$
+
+che è equivalente alla tua formula ${4 \choose 2}{38 \choose 3}$. Tuttavia, questa non è il modo giusto per procedere. Una idea può essere:
+
+$$
+{4 \choose 2}{36 \choose 3} + {4 \choose 3}{36 \choose 2} + {4 \choose 4}{36 \choose 1} = 45396
+$$
+
+In questo modo, il primo termine (preso dall'esercizio precedente), ${4 \choose 2}{36 \choose 3}$, viene sommato a due termini che includono il caso in cui si scelgono tre assi e e due altre carte ${4 \choose 3}{36 \choose 2}$, e il caso in cui si scelgono tutti e 4 gli assi e una dalle 36 carte rimanenti ${4 \choose 4}{36 \choose 1}$. 
+
+Questo è perché, da un punto di vista probabilistico, l'evento "viene pescata una mano contenente due assi" è incompatibile con l'evento "la mano ne contiene tre" e "la mano ne contiene quattro". Non possiamo considerarlo come un unico evento, ma dobbiamo contare i tre casi separatamente - sono infatti eventi incompatibili. La prima soluzione, concettualmente, sta quindi calcolando le combinazioni possibili di 5 carte dove 2 sono prese da 4 assi, e le altre 3 da un mazzo ipotetico di 38 carte (che in teoria conterrebbero i due assi scartati). In questo modo, però, sta considerando più assi di quanti ve ne siano: come si può sapere quali dei due assi nel primo "mazzo" devono essere tolti e conteggiati nel secondo?
+
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 6.] 
+La richiesta può essere parafrasata nella seguente maniera: "le prime due carte devono essere una coppia di carte di uguale valore, le seconde due carte una coppia di carte di uguale valore ma diverso dalle prime due, la quinta non ha limiti".
+
+Per poter scegliere i valori delle due coppie, abbiamo ${10 \choose 2}$ metodi diversi per farlo (per i 10 valori possibili che ottengono le carte). Abbiamo quindi una situazione del genere:
+\begin{verbatim}
+    V1 ? V2 ? ?
+\end{verbatim}
+dove V1, V2 sono i due valori (diversi!) scelti. Entrambi i valori hanno ${4 \choose 2}$ coppie possibili, scelte dai 4 semi. Infine, moltiplichiamo tutto per le 32 carte rimanenti ($36 - 2 - 2$, in quanto dobbiamo scartare le carte uguali alle due coppie che non sono state scelte prima). Otteniamo quindi:
+
+$$
+{10 \choose 2} \cdot {4 \choose 2} \cdot {4 \choose 2} \cdot 32
+$$
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 14]
+Quanti sono i numeri di 6 cifre che non contengono 0, hanno la cifra 1 per 2 volte e la cifra 2 per 2 volte?
+\end{theorem}
+
+\begin{proof}
+Dobbiamo contare come possiamo occupare i due spazi rimasti con 7 cifre (dalla 3 alla 9). Se queste due cifre sono uguali, allora abbiamo che i possibili numeri sono 
+
+$$\frac{6! \cdot 7}{2! \cdot 2! \cdot 2!}$$
+
+ovvero le permutazioni di 6 cifre di cui 2 uguali tra loro (la cifra), altre 2 uguali tra loro (la cifra 1) e altre 2 uguali tra loro (la cifra 2). Il tutto moltiplicato per 7, ovvero le possibili cifre. In sintesi:
+ 
+$$\frac{7!}{2! \cdot 2! \cdot 2!} = 630$$
+
+Per calcolare la seconda parte, sappiamo che le due cifre sono diverse e quindi possiamo calcolare le disposizioni moltiplicando le combinazioni di 2 oggetti presi da un gruppo di 7, per le permutazioni di questi possibili oggetti (come detto un po' sopra, deriva dalla formula delle combinazioni stesse). Quindi, una combinazione ${7 \choose 2}$ per le permutazioni simili a prima, con un 2! in meno (perché le due cifre non sono più uguali)
+ 
+$${7 \choose 2} \cdot \frac{6!}{2! \cdot 2!} = 3780$$
+
+Queste due vanno unite, quindi otterremmo $630 + 3780 = 4410$.
+\end{proof}
+
+\end{document}
