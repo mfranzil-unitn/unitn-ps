@@ -1,7 +1,0 @@
-\babel@toc {italian}{}
-\babel@toc {italian}{}
-\contentsline {section}{\numberline {1}Formule utilizzate negli esercizi}{2}{}%
-\contentsline {section}{\numberline {2}Esercizi}{2}{}%
-\contentsline {subsection}{\numberline {2.1}Lezione 09/04/2021}{2}{}%
-\contentsline {subsection}{\numberline {2.2}Recupero lezione 02/04/2021}{8}{}%
-\contentsline {subsection}{\numberline {2.3}Soluzione esempio provetta}{8}{}%
