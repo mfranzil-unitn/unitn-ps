@@ -15,10 +15,10 @@
 \DeclareUnicodeCharacter{2212}{\textminus}
 
 \DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
-	
+
 \newtheorem{theorem}{Esercizio}
 %\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
-\renewcommand\qedsymbol{$\blacksquare$}
+\renewcommand\qedsymbol{$\square$}
 
 \begin{document}
 
@@ -26,10 +26,16 @@
 \author{Matteo Franzil}
 \maketitle
 
+\tableofcontents
+
+\newpage
 \section{Formule utilizzate negli esercizi}
 
 $$
 {n \choose k} = \frac{n!}{((n-r)! \cdot r!}
+$$
+$$
+{n + k - 1 \choose k} = \frac{(n + k - 1)!}{k! \cdot (n - 1)!}
 $$
 $$
 C_{\text{n, r}} = \frac{D_{\text{n, r}}}{P_r}
@@ -38,6 +44,7 @@ $$
 In queste dispense il simbolo $\blacksquare$ denota la fine di un esercizio, $\square$ la fine di un sotto-punto. La notazione ${a \choose b}$ rappresenta una combinazione.
 
 \section{Esercizi}
+\subsection{Lezione 09/04/2021}
 
 \begin{theorem}[ex. Esercizio 11]
 12 gettoni numerati vengono consegnati casualmente, uno alla volta, ad altrettante persone. Meravigliando tutti sono assegnati secondo l'ordine crescente dei numeri che li distingue. Quale è la probabilità di un simile evento?
@@ -179,6 +186,7 @@ Tutto ciò ammonta a $4 + 4 + 4 = 12$  modi possibili.
 \renewcommand\qedsymbol{$\square$}
 
 \begin{theorem}[ex. Esercizio 5]
+\label{ex:carte:almeno}
 Si consideri un mazzo di 40 carte (10 carte distinte per ciascuno dei quattro semi).
 
 \begin{enumerate}
@@ -272,5 +280,188 @@ $${7 \choose 2} \cdot \frac{6!}{2! \cdot 2!} = 3780$$
 
 Queste due vanno unite, quindi otterremmo $630 + 3780 = 4410$.
 \end{proof}
+
+
+\subsection{Recupero lezione 02/04/2021}
+
+\begin{theorem}[ex. Esercizio 21]
+Vi sono 20000 euro da investire su 4 possibili titoli azionari. Ogni investimento deve essere un multiplo di 1000 euro, ma c’è un investimento minimo che dipende dal titolo azionario. Gli investimenti minimi sono rispettivamente di 4, 3, 2 e 2 migliaia di euro. Quante differenti strategie di investimento sono possibili se
+\begin{itemize}
+    \item si vuole investire su ciascuno dei 4 titoli azionari;
+    \item si vuole investire su almeno 3 dei 4 titoli azionari.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}[Punto 1.]
+Prima di tutto, calcoliamo il minimo investimento necessario se andiamo a investire su tutti e 4 i titoli. Leggendo il testo, è chiaro come sia necessario impegnare necessariamente almeno $4 + 3 + 2 + 2 = 11$ migliaia di euro. Le restanti 9 migliaia possono essere quindi distribuite tra i quattro titoli. Questo è equivalente a una combinazione con ripetizione di 9 elementi scelti tra 4. Ponendo $n = 4$ e $k = 9$, abbiamo
+
+$$
+{4 + 9 - 1 \choose 9} = {12 \choose 9} = \frac{12!}{9! \cdot 11!}
+$$
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2.]
+Il metodo risolutivo è simile a quanto visto prima, con la differenza che ora al risultato precedente dobbiamo andare a sommare i casi in cui si scelgono 3 dei 4 titoli azionari (stessa solfa dell'esercizio \ref{ex:carte:almeno} al punto che riguardava "almeno 2 carte"). A ${12 \choose 9}$ sommiamo quindi i tre casi in cui investiamo su tre dei quattro titoli, ignorando il quarto:
+\begin{itemize}
+    \item Escludiamo il terzo (idem il quarto): $4+3+2=9$ investimento iniziale, $11$ migliaia rimanenti: ${3 + 11 - 1 \choose 11} = {13 \choose 11}$
+    \item Escludiamo il secondo: $4+2+2=8$ investimento iniziale, $12$ migliaia rimanenti: ${3 + 12 - 1 \choose 12} = {14 \choose 12}$
+    \item Escludiamo il primo: $3+2+2=7$ investimento iniziale, $13$ migliaia rimanenti: ${3 + 13 - 1 \choose 13} = {15 \choose 13}$
+\end{itemize}
+
+Sommando:
+
+$$
+{12 \choose 9} + {13 \choose 11} + {13 \choose 11} + {14 \choose 12} + {15 \choose 13}
+$$
+
+\end{proof}
+
+\subsection{Soluzione esempio provetta}
+
+Le soluzioni di seguito non sono originali, ma ricavate (e adattate, con spiegazioni extra) da quelle ufficiali.
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{theorem}[ex. Esercizio 1]
+In una schedina del Totocalcio sono inserite ogni settimana 13 partite. Compilare una colonna significa prevedere un possibile esito tra \verb=1=, \verb=X=, \verb=2= per ognuna delle partite. Per ogni esito indovinato, il giocatore guadagna un punto.
+\begin{itemize}
+    \item In quanti modi si può compilare una colonna? 313
+    \item Supponendo che gli esiti delle partite siano tutti equiprobabili, qual è la probabilità di fare 13 punti? 1/313
+    \item Supponendo di voler inserire l’esito 1 per otto partite, l’esito X per tre partite e l’esito 2 per due partite, in quanti modi si può compilare una colonna?
+\end{itemize}
+\end{theorem}
+
+\begin{proof}[Punto 1]
+Il primo punto si risolve al volo utilizzando le disposizioni con ripetizione: abbiamo 13 partite diverse, 3 modi per compilarle: la soluzione che cerchiamo è $3^{13} = 1594323$.
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2]
+Il secondo punto si ricava altrettanto in fretta, osservando come solo una di queste $3^{13}$ combinazioni sia a noi favorevole: quella in cui azzecchiamo tutti gli esiti. Otteniamo quindi $\frac{1}{3^{13}}$.
+\end{proof}
+\begin{proof}[Punto 3]
+Il terzo punto si può affrontare nella maniera seguente. Le otto partite sulla quale vogliamo inserire \verb=1= si possono scegliere con ${13 \choose 8}$. Quelle con \verb=X=, analogamente, con ${(13 - 8) \choose 3}$. Le due rimanenti dovranno avere per forza \verb=2=. Abbiamo quindi:
+$$
+{13 \choose 8} \cdot {5 \choose 3}
+$$
+\end{proof}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{theorem}[ex. Esercizio 2]
+L’alfabeto italiano è composto da 21 lettere. Quante parole diverse di 8 lettere (non necessariamente di senso compiuto e non considerando la differenza tra maiuscole e minuscole) si possono creare in modo che:
+\begin{itemize}
+    \item inizino con la sillaba 'IO'?
+    \item inizino oppure finiscano con la sillaba 'IO'? 
+    \item siano palindrome (cioè si leggono allo stesso modo da sinistra a destra e da destra a sinistra, ad esempio ANNA, RADAR, INGEGNI, ecc ...)?
+\end{itemize}
+\end{theorem}
+
+\begin{proof}[Punto 1]
+Per risolvere il primo punto, notiamo che il fatto che una parola inizi con due lettere fissate per noi è equivalente a chiederci di trovare una disposizione (con ripetizione) delle sei lettere rimanenti. La sottostringa \verb=IO= poteva stare prima, dopo, in mezzo...ma poco importa. Con $21^6$ calcoliamo i casi in questione.
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2]
+Il secondo punto può sembrare apparentemente semplice ma è altrettanto semplice essere tratti in inganno. In questo caso, il risultato ottenuto prima non ci verrà d'aiuto: infatti, l'esercizio chiede di calcolare quello che è la somma di tre eventi incompatibili - una parola che inizia con 'IO', una che finisce con 'IO', una che ha 'IO' su entrambi i lati. Per non incorrere in errori ulteriori, tuttavia, bisogna stare molto attenti a un dettaglio: in questo caso il fatto che una parola inizi con 'IO' implica automaticamente che NON finisca con quella sillaba (sennò ricadrebbe nel terzo caso). Stessa sorte per il secondo caso.
+
+Passando ai calcoli, abbiamo che per i primi due casi quattro lettere sono scelte liberamente, due sono fisse ('IO'), e le ultime (rispettivamente prime) due NON possono essere io. Quindi otteniamo
+$$
+1 \cdot 21 \cdot 21 \cdot 21 \cdot 21 \cdot (21 \cdot 21 - 1) = 21^6 - 21^4
+$$
+dove il primo 1 rappresenta la combinazione 'IO' iniziale (rispettivamente finale), e il termine $(21 \cdot 21 - 1)$ rappresenta le combinazioni delle ultime (rispettivamente prime) due cifre meno la combinazione 'IO'.
+
+Per il terzo caso, quattro cifre sono fissate, quindi possiamo calcolarlo semplicemente come $21^4$. Il totale è quindi $2 \cdot (21^6 - 21^4) + 21^4$.
+
+Vi è un metodo - non proposto dalle soluzioni ufficiali - più veloce, tuttavia, che invece sfrutta il risultato ottenuto nel primo punto. Semplicemente, si può prima calcolare il numero di parole senza 'IO' all'inizio e alla fine, $21^4$, e sottrarlo poi a $21^6$ (ovvero tutte le parole che iniziano, o che finiscono, con 'IO'). In ogni caso, i risultati ottenuti coincidono.
+\end{proof}
+\begin{proof}[Punto 3]
+Osservando come una parola palindroma di otto lettere è determinata solo dalla sua prima metà (e non abbiamo problemi con lettere centrali), il risultato è $21^4$.
+\end{proof}
+
+\begin{theorem}
+In un negozio di vestiti viene esposto uno scatolone di T-shirt da uomo e da donna in saldo. Il 25\% di esse è di colore rosso, il 35\% di colore grigio e il 40\% di colore verde. 
+Una maglietta rossa è da uomo con probabilità 0.1, una grigia con probabilità 0.7 e una verde con probabilità 0.5.
+\begin{itemize}
+    \item Qual è la probabilità che una T-shirt scelta a caso nello scatolone sia da donna?
+    \item Avendo estratto una T-shirt da donna, qual è la probabilità condizionata che sia rossa, grigia o verde?
+\end{itemize}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1]
+Poniamo D = "T-shirt da donna", R = "T-shirt rossa", G = "T-shirt grigia", V = "T-shirt verde". Utilizzando il Teorema di Bayes e la legge della probabilità totale, otteniamo:
+$$
+P(D) = P(D|R)P(R) + P(D|G)P(G) + P(D|V)P(V)
+$$
+Abbiamo che $P(R), P(G), P(V)$ ci vengono date direttamente nella prima frase dell'esercizio: $P(R) = 0.25, P(G)=0.35, P(V)=0.4$. 
+
+Per ottenere le probabilità condizionate, che possiamo leggere come "probabilità che una T-shirt sia da donna sapendo che è del colore X", dobbiamo effettuare il complemento delle probabilità fornite nella seconda frase, ricordandoci che il complemento di una probabilità inverte soltanto la probabilità (e non va a toccare la condizione). 
+
+Quindi $P(D|R) = 1 - P(M|R) = 1 - 0.1 = 0.9; P(D|G) = 1 - 0.7 = 0.3; P(D|V) = 1 - 0.5 = 0.5$. Il risultato finale, una volta terminati i calcoli, è pari a $0.53$.
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2]
+Ancora una volta ci viene in soccorso il Teorema di Bayes. Infatti, l'esercizio ci sta velatamente chiedendo di invertire le probabilità condizionate ottenute nel punto precedente:
+$$
+P(R|D) = \frac{P(D|R)P(R)}{P(D)} = 0.4245
+$$
+$$
+P(G|D) = \frac{P(D|G)P(G)}{P(D)} = 0.1981
+$$
+$$
+P(V|D) = \frac{P(D|V)P(V)}{P(D)} = 0.3374
+$$
+I risultati numerici seguono dalla sostituzione diretta dei termini.
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 5]
+Data la funzione
+$$
+f_X(n) = \begin{cases} 0 & x < 0 \\ a e^x & 0 \le x \le t \mbox{   a, t} > 0 \\ 0 & x > t \end{cases}
+$$
+dove a e t sono parametri non negativi.
+\begin{itemize}
+    \item si determini il vincolo che a e t devono rispettare affinché essa sia una pdf valida.
+    \item Fissando $t = ln 5$, si calcoli la probabilità che la relativa variabile aleatoria assuma valore nell’intervallo $[0, \frac{1}{2}] \cup [1, \frac{3}{2}]$  
+\end{itemize}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1]
+Essendo a positivo, $f_X$ è sempre positiva e monotonica, dunque per verificare che sia valida dobbiamo imporre che l’integrale su $x$ sia uguale a 1, il tutto calcolato tra $0$ e $t$:
+
+$$
+\int_{-\infty}^{+\infty} f_X(x) \,dx = 1
+$$
+$$
+\int_{0}^{t} a e^x \,dx = [a e^x]^t_0 = a(e^t - 1) = 1
+$$
+$$
+a(e^t - 1) = 1 \Longrightarrow a = \frac{1}{e^t - 1}
+$$
+
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2]
+Se $t = ln 5$ allora dalla definizione $a = \frac{1}{5-1} = \frac{1}{4}$. Per calcolare il valore, applichiamo la definizione di c.d.f. $F_X$. Per calcolarla, possiamo utilizzare l'integrale calcolato al punto precedente: abbiamo quindi che $F_X(x) = a e^x$ per $x$ da $0$ a $t$. Calcolando tutto:
+$$
+(\frac{1}{4} e^{\frac{1}{2}} - \frac{1}{4} e^{0}) + (\frac{1}{4} e^{\frac{3}{2}} - \frac{1}{4} e^{1}) = 
+$$
+$$
+= \frac{1}{4} (e^{\frac{1}{2}} - 1 + e^{\frac{3}{2}} - e) = 0.6
+$$
+\end{proof}
+
 
 \end{document}
