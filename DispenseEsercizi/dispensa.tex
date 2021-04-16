@@ -43,6 +43,9 @@ $$
 
 In queste dispense il simbolo $\blacksquare$ denota la fine di un esercizio, $\square$ la fine di un sotto-punto. La notazione ${a \choose b}$ rappresenta una combinazione.
 
+Inoltre, per quanto riguarda le variabili aleatorie, utilizziamo la notazione $F(x)$ ("F grande di x") per indicare la C.d.f. (detta funzione di ripartizione in certi esercizi); $f(x)$ ("f piccolo di x") per indicare la p.d.f., ovvero la funzione densità di probabilità per le variabili \textbf{continue}, e $P(x)$ ("P grande di x") per indicare la p.m.f., ovvero la funzione massa di probabilità per le variabili \textbf{discrete}.
+
+
 \section{Esercizi}
 \subsection{Lezione 09/04/2021}
 
@@ -364,8 +367,6 @@ L’alfabeto italiano è composto da 21 lettere. Quante parole diverse di 8 lett
 Per risolvere il primo punto, notiamo che il fatto che una parola inizi con due lettere fissate per noi è equivalente a chiederci di trovare una disposizione (con ripetizione) delle sei lettere rimanenti. La sottostringa \verb=IO= poteva stare prima, dopo, in mezzo...ma poco importa. Con $21^6$ calcoliamo i casi in questione.
 \end{proof}
 
-\renewcommand\qedsymbol{$\blacksquare$}
-
 \begin{proof}[Punto 2]
 Il secondo punto può sembrare apparentemente semplice ma è altrettanto semplice essere tratti in inganno. In questo caso, il risultato ottenuto prima non ci verrà d'aiuto: infatti, l'esercizio chiede di calcolare quello che è la somma di tre eventi incompatibili - una parola che inizia con 'IO', una che finisce con 'IO', una che ha 'IO' su entrambi i lati. Per non incorrere in errori ulteriori, tuttavia, bisogna stare molto attenti a un dettaglio: in questo caso il fatto che una parola inizi con 'IO' implica automaticamente che NON finisca con quella sillaba (sennò ricadrebbe nel terzo caso). Stessa sorte per il secondo caso.
 
@@ -379,6 +380,9 @@ Per il terzo caso, quattro cifre sono fissate, quindi possiamo calcolarlo sempli
 
 Vi è un metodo - non proposto dalle soluzioni ufficiali - più veloce, tuttavia, che invece sfrutta il risultato ottenuto nel primo punto. Semplicemente, si può prima calcolare il numero di parole senza 'IO' all'inizio e alla fine, $21^4$, e sottrarlo poi a $21^6$ (ovvero tutte le parole che iniziano, o che finiscono, con 'IO'). In ogni caso, i risultati ottenuti coincidono.
 \end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
 \begin{proof}[Punto 3]
 Osservando come una parola palindroma di otto lettere è determinata solo dalla sua prima metà (e non abbiamo problemi con lettere centrali), il risultato è $21^4$.
 \end{proof}
@@ -463,5 +467,91 @@ $$
 $$
 \end{proof}
 
+\subsection{Lezione 12/04/2021}
+
+Visto lo scarso tempo a disposizione, le seguenti dimostrazioni sono decisamente più veloci e concise.
+
+\begin{theorem}[ex. Esercizio 20]
+14 amici si mettono in viaggio. Hanno a disposizione 1 vettura a 7 posti, una a 5 e una moto. Considerando che i proprietari dei tre mezzi vogliono guidarli, in quanti modi diversi si possono comporre gli equipaggi?
+\end{theorem}
+
+\begin{proof}
+Per risolvere questo esercizio, adoperiamo delle combinazioni semplici. In questo caso, non è necessario né utilizzare permutazioni (perché tutti e tre i veicoli sono distinguibili), né disposizioni, in quanto ci interessano solo i modi in cui comporre l'equipaggio e non l'ordine.
+
+In formula, scegliamo 6 persone per la prima macchina dalle 11 rimanenti (tolti gli autisti), altre 3 dalle 5 rimanenti, e per la moto rimane una scelta obbligata:
+$$
+{11 \choose 6} \cdot {5 \choose 3} \cdot 1
+$$
+\end{proof}
+
+\begin{theorem}[ex. Esempio 2a]
+Data una variabile aleatoria X e la sua p.m.f. $P(i) = c \frac{\lambda^i}{i!}$ dove $i = 0, 1, 2 \cdots, \lambda > 0$. Si calcoli
+\begin{itemize}
+    \item $P{X=0}$
+    \item $P{X>2}$
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+(da fare; vedere dispense della prof.)
+\end{proof}
+
+\begin{theorem}
+Ci sono 10 copie di un libro da distribuire in 5 scuole. In quanti modi possono essere distribuiti?
+\end{theorem}
+
+\begin{proof}
+In questo caso, possiamo adoperarci con delle combinazioni con ripetizione per risolvere velocemente l'esercizio. Possiamo vederlo in due modi: o dobbiamo "assegnare" 5 scuole ai 10 libri, potendole assegnare con ripetizione, oppure dobbiamo assegnare "con ripetizione" 10 copie dello stesso libro alle 5 scuole. In ogni caso, è importante fissare $k$ come i libri (ovvero l'oggetto non distinguibile, in quanto sono copie dello stesso libro) e $n$ come le scuole, ovvero l'oggetto distinguibile. In formula:
+$$
+{5 + 10 - 1 \choose 10} = {14 \choose 10}
+$$
+\end{proof}
+
+\begin{theorem}
+La percentuale di studenti iscritti al secondo anno di ingegneria che frequenta il corso di statistica è del 90\%. Si suppone che, tra questi, il 90\% supererà l'esame. Supponendo inoltre che la percentuale di studenti che non supereranno l'esame sia del 12\%, si calcoli:
+\begin{itemize}
+    \item qual è la percentuale di studenti che non supererà l'esame tra quelli che non frequentano il corso;
+    \item qual è la percentuale di studenti che non frequentano tra quelli che si ipotizza non supereranno l'esame.
+\end{itemize}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1.]
+Siano F = "Uno studente frequenta il corso", E = "Uno studente supera il corso". Allora: $P(F) = 0.9, P(E|F) = 0.9, P(\bar{E}) = 0.12$, a partire dai dati forniti dal testo.
+
+Il primo punto ci chiede $P(\bar{E}|\bar{F})$. Utilizzando il teorema della probabilità totale, possiamo ricavarcelo nel seguente modo:
+
+$$
+P(\bar{E}|F)P(F) + P(\bar{E}|\bar{F})P(\bar{F}) = P(\bar{E}) 
+$$
+$$
+P(\bar{E}|\bar{F}) = \frac{P(\bar{E}) - P(\bar{E}|F)P(F)}{P(\bar{F})}
+$$
+$$
+1 - P(E|\bar{F}) = \frac{P(\bar{E}) - P(\bar{E}|F)P(F)}{P(\bar{F})}
+$$
+$$
+P(E|\bar{F}) = 1 - \frac{P(\bar{E}) - P(\bar{E}|F)P(F)}{P(\bar{F})}
+$$
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2.]
+(da fare)
+\end{proof}
+
+\begin{theorem}
+Il tempo di vita di un dato tipo di pile per la radio è una variabile aleatoria la cui densità è data da
+$$
+f(x) = \begin{cases} 0 & x \le 100 \\ \frac{100}{x^2} & x > 100 \end{cases}
+$$
+Qual è la probabilità che esattamente 2 pile della radio su 5 debbano essere sostituite entro le 150 ore di attività? Si supponga che gli eventi $E_i, i = 1, 2, 3, 4, 5$ = "l'$i$-esima pila andrà rimpiazzata entro questo tempo", siano indipendenti.
+\end{theorem}
+
+\begin{proof}
+(da fare: vedere le dispense fornite dalla prof.)
+\end{proof}
 
 \end{document}
