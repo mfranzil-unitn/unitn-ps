@@ -8,6 +8,9 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{setspace}
+\usepackage{tikz}
+\usepackage{tikzit}
+\input{style.tikzstyles}
 
 \newcounter{numeroes}[section]
 \newcounter{requestcounter}
@@ -19,6 +22,8 @@
 \newtheorem{theorem}{Esercizio}
 %\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
 \renewcommand\qedsymbol{$\square$}
+\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
+\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
 
 \begin{document}
 
@@ -31,17 +36,13 @@
 \newpage
 \section{Formule utilizzate negli esercizi}
 
-$$
-{n \choose k} = \frac{n!}{((n-r)! \cdot r!}
-$$
-$$
-{n + k - 1 \choose k} = \frac{(n + k - 1)!}{k! \cdot (n - 1)!}
-$$
-$$
-C_{\text{n, r}} = \frac{D_{\text{n, r}}}{P_r}
-$$
+\begin{gather*}
+	\binom{n}{k} = \frac{n!}{(n-r)! \cdot r!} \\
+	\binom{n + k - 1}{k} = \frac{(n + k - 1)!}{k! \cdot (n - 1)!} \\
+	C_{n, r} = \frac{D_{n, r}}{P_r}
+\end{gather*}
 
-In queste dispense il simbolo $\blacksquare$ denota la fine di un esercizio, $\square$ la fine di un sotto-punto. La notazione ${a \choose b}$ rappresenta una combinazione.
+In queste dispense il simbolo $\blacksquare$ denota la fine di un esercizio, $\square$ la fine di un sotto-punto. La notazione $\binom{a}{b}$ rappresenta una combinazione.
 
 Inoltre, per quanto riguarda le variabili aleatorie, utilizziamo la notazione $F(x)$ ("F grande di x") per indicare la C.d.f. (detta funzione di ripartizione in certi esercizi); $f(x)$ ("f piccolo di x") per indicare la p.d.f., ovvero la funzione densità di probabilità per le variabili \textbf{continue}, e $P(x)$ ("P grande di x") per indicare la p.m.f., ovvero la funzione massa di probabilità per le variabili \textbf{discrete}.
 
@@ -50,41 +51,41 @@ Inoltre, per quanto riguarda le variabili aleatorie, utilizziamo la notazione $F
 \subsection{Lezione 09/04/2021}
 
 \begin{theorem}[ex. Esercizio 11]
-12 gettoni numerati vengono consegnati casualmente, uno alla volta, ad altrettante persone. Meravigliando tutti sono assegnati secondo l'ordine crescente dei numeri che li distingue. Quale è la probabilità di un simile evento?
+	12 gettoni numerati vengono consegnati casualmente, uno alla volta, ad altrettante persone. Meravigliando tutti sono assegnati secondo l'ordine crescente dei numeri che li distingue. Quale è la probabilità di un simile evento?
 \end{theorem}
 
 \begin{proof}
-La probabilità che la permutazione dei gettoni $[1, 2...12]$ avvenga è esattamente la stessa di una qualunque altra permutazione di gettoni. In altre parole, la probabilità è pari a $\frac{1}{12!}$, dove $12!$ corrisponde a tutte le permutazioni possibili dei gettoni. E' possibile vedere questa soluzione in un altro modo: quando assegno il gettone alla prima persona, ho $P = \frac{1}{12}$ di assegnarle il gettone numerato $1$. Alla seconda persona, ora ho $P =\frac{1}{11}$ di assegnarle il gettone $2$. E così via, ottenendo quindi che la probabilità finale sarà pari a 
-
-$$\frac{1}{12} \cdot \frac{1}{11} \cdot \frac{1}{10} \cdot \cdots \cdot 1 = \frac{1}{12!}
-$$
-
+	La probabilità che la permutazione dei gettoni $[1, 2...12]$ avvenga è esattamente la stessa di una qualunque altra permutazione di gettoni. In altre parole, la probabilità è pari a $\frac{1}{12!}$, dove $12!$ corrisponde a tutte le permutazioni possibili dei gettoni. E' possibile vedere questa soluzione in un altro modo: quando assegno il gettone alla prima persona, ho $P = \frac{1}{12}$ di assegnarle il gettone numerato $1$. Alla seconda persona, ora ho $P =\frac{1}{11}$ di assegnarle il gettone $2$. E così via, ottenendo quindi che la probabilità finale sarà pari a
+	
+	\[
+        \frac{1}{12} \cdot \frac{1}{11} \cdot \frac{1}{10} \cdot \cdots \cdot 1 = \frac{1}{12!}
+    \]
 \end{proof}
 
 \begin{theorem}[ex. Esercizio 14]
-Se si distribuiscono 40 carte a 4 giocatori, quali sono le possibili diverse assegnazioni?
+	Se si distribuiscono 40 carte a 4 giocatori, quali sono le possibili diverse assegnazioni?
 \end{theorem}
 
 \begin{proof}
-In questo caso, l'ordine delle carte non ci importa in quanto viene valutato soltanto l'intero mazzo di 10 carte che riceve ogni singolo giocatore. Inoltre, assumiamo che tutte le carte siano diverse. Allora al primo giocatore possiamo dare ${40 \choose 10}$ carte; al secondo  e rimangono 30, quindi ${30 \choose 10}$; idem per gli altri 2, ${20 \choose 10}$ e ${10 \choose 10}$ = 1. Questi risultati vanno moltiplicati tra loro:
-
-$$
-{40 \choose 10} \cdot {30 \choose 10} \cdot {20 \choose 10} = 
-\frac{40!}{30! \cdot 10!} \cdot \frac{30!}{20! \cdot 10!} \cdot \frac{20!}{10! \cdot 10!} = 4,705 \cdot 10^{21} 
-$$
-
+	In questo caso, l'ordine delle carte non ci importa in quanto viene valutato soltanto l'intero mazzo di 10 carte che riceve ogni singolo giocatore. Inoltre, assumiamo che tutte le carte siano diverse. Allora al primo giocatore possiamo dare $\binom{40}{10}$ carte; al secondo  e rimangono 30, quindi $\binom{30}{10}$; idem per gli altri 2, $\binom{20}{10}$ e $\binom{10}{10}$ = 1. Questi risultati vanno moltiplicati tra loro:
+	
+	\[
+		\binom{40}{10} \cdot \binom{30}{10} \cdot \binom{20}{10} =
+		\frac{40!}{30! \cdot 10!} \cdot \frac{30!}{20! \cdot 10!} \cdot \frac{20!}{10! \cdot 10!} = 4,705 \cdot 10^{21}
+    \]
+	
 \end{proof}
 
 \begin{theorem}[ex. Esercizio 15]
-Una mano a poker è formata da 5 carte. Abbiamo una scala semplice se le carte hanno valori distinti e consecutivi e non hanno tutte il medesimo seme. per esempio, una mano che consista del cinque di picche, sei di picche, sette di picche, otto di picche e nove di cuori è una scala semplice. Quale è la probabilità che uno riceva una scala semplice.
+	Una mano a poker è formata da 5 carte. Abbiamo una scala semplice se le carte hanno valori distinti e consecutivi e non hanno tutte il medesimo seme. per esempio, una mano che consista del cinque di picche, sei di picche, sette di picche, otto di picche e nove di cuori è una scala semplice. Quale è la probabilità che uno riceva una scala semplice.
 \end{theorem}
 
 \begin{proof}
-Prima di tutto calcoliamo tutte le combinazioni possibili di mani da poker, composte da 5 carte: ${52 \choose 5} = 2598960$. Successivamente, calcoliamo le combinazioni a noi favorevoli. 
-
-La prima carta la possiamo scegliere in 10 modi, contando il fatto che l'asso può essere inserito sia all'inizio che alla fine. Ecco una rappresentazione visiva delle possibili scale (lasciando perdere il seme):
-
-\begin{verbatim}
+	Prima di tutto calcoliamo tutte le combinazioni possibili di mani da poker, composte da 5 carte: $\binom{52}{5} = 2598960$. Successivamente, calcoliamo le combinazioni a noi favorevoli.
+	
+	La prima carta la possiamo scegliere in 10 modi, contando il fatto che l'asso può essere inserito sia all'inizio che alla fine. Ecco una rappresentazione visiva delle possibili scale (lasciando perdere il seme):
+	
+	\begin{verbatim}
     A    2    3    4    5    
     2    3    4    5    6
     3    4    5    6    7
@@ -95,230 +96,244 @@ La prima carta la possiamo scegliere in 10 modi, contando il fatto che l'asso pu
     8    9    10   J    Q
     9    10   J    Q    K
     10   J    Q    K    A
-\end{verbatim}
-
-Guardando la prima riga, possiamo notare come la prima carta debba essere necessariamente essere una dall'asso al 10, in quanto le scale "a cavallo" tra i numeri non sono consentiti. Una volta scelta la prima carta, la seconda carta - non importandoci il seme - possiamo sceglierla in 4 modi diversi. Stessa solfa per la terza, e per la quarta carta. Abbiamo finora quindi:
-
-$$\frac{10 \cdot 4^5}{2598960}$$
-
-Vi è però una minuziosità nel testo dell'esercizio, facilmente trascurabile se uno non conosce bene il gioco del poker o non interpreta alla lettera quanto scritto. Il fatto che le carte non debbano avere tutto lo stesso seme non è tenuto in conto nel nostro conto precedente: infatti, quando tutte le carte sono dello stesso seme la scala si dice scala reale. Le possibili scale reali sono 40. E' facile visualizzare il perché di questo numero, osservando la figura sopra mostrante tutte le possibili scale. Se immaginiamo che quella figura rappresenti soltanto le scale con carte tutte dello stesso seme e la moltiplichiamo per 4, otteniamo 40. Il conto finale ammonta quindi a:
-
-$$\frac{10 \cdot 4^5 - 40}{2598960} = 0,0039$$
-
+	\end{verbatim}
+	
+	Guardando la prima riga, possiamo notare come la prima carta debba essere necessariamente essere una dall'asso al 10, in quanto le scale "a cavallo" tra i numeri non sono consentiti. Una volta scelta la prima carta, la seconda carta - non importandoci il seme - possiamo sceglierla in 4 modi diversi. Stessa solfa per la terza, e per la quarta carta. Abbiamo finora quindi:
+	
+	\[
+		\frac{10 \cdot 4^5}{2598960}
+	\]
+	
+	Vi è però una minuziosità nel testo dell'esercizio, facilmente trascurabile se uno non conosce bene il gioco del poker o non interpreta alla lettera quanto scritto. Il fatto che le carte non debbano avere tutto lo stesso seme non è tenuto in conto nel nostro conto precedente: infatti, quando tutte le carte sono dello stesso seme la scala si dice scala reale. Le possibili scale reali sono 40. E' facile visualizzare il perché di questo numero, osservando la figura sopra mostrante tutte le possibili scale. Se immaginiamo che quella figura rappresenti soltanto le scale con carte tutte dello stesso seme e la moltiplichiamo per 4, otteniamo 40. Il conto finale ammonta quindi a:
+	
+	\[
+		\frac{10 \cdot 4^5 - 40}{2598960} = 0,0039
+	\]
+	
 \end{proof}
 
 \begin{theorem}[ex. Esercizio 20]
-Supponiamo di dover selezionare a caso 5 persone da un gruppo di 20 individui formato da 10 coppie sposate e che si sia interessati a calcolare la probabilità che i cinque individui selezionati non siano in relazione tra loro, ovvero che non ce ne siano due tra loro sposati?
+	Supponiamo di dover selezionare a caso 5 persone da un gruppo di 20 individui formato da 10 coppie sposate e che si sia interessati a calcolare la probabilità che i cinque individui selezionati non siano in relazione tra loro, ovvero che non ce ne siano due tra loro sposati?
 \end{theorem}
 
 \begin{proof}
-Calcoliamo tutte le possibili combinazioni di 5 persone scelte da un gruppo di 20 individui: ${20 \choose 5} = 15504$.
-
-Calcoliamo ora le combinazioni a noi favorevoli. La prima persona la possiamo scegliere in 20 modi diversi. Una volta scelta la prima persona, siamo necessariamente vincolati a non scegliere il "coniuge". Ci rimangono quindi 18 persone da scegliere per la persona successiva, 16 per quella dopo, e così via. Otteniamo quindi $20 \cdot 18 \cdot 16 \cdot 14 \cdot 12$. Tuttavia, dobbiamo necessariamente dividere questo numero per tutte le permutazioni possibili di 5 persone, ovvero 5!. In formula:
-
-$$\frac{\frac{20 \cdot 18 \cdot 16 \cdot 14 \cdot 12}{5!}}{ 15504} = \frac{168}{323}$$
-
-Nota bene: vi sono svariati modi di risolvere questo esercizio: usando le disposizioni, le combinazioni, o un po' e un po' (come qua sopra). In generale, molti esercizi ammettono più ragionamenti che vanno benissimo finché si spiega perché si è fatta una scelta piuttosto che un'altra. Ripeterlo a parole aiuta tantissimo (per inciso, ha aiutato me mentre scrivevo queste dispense). 
+	Calcoliamo tutte le possibili combinazioni di 5 persone scelte da un gruppo di 20 individui: $\binom{20}{5} = 15504$.
+	
+	Calcoliamo ora le combinazioni a noi favorevoli. La prima persona la possiamo scegliere in 20 modi diversi. Una volta scelta la prima persona, siamo necessariamente vincolati a non scegliere il "coniuge". Ci rimangono quindi 18 persone da scegliere per la persona successiva, 16 per quella dopo, e così via. Otteniamo quindi $20 \cdot 18 \cdot 16 \cdot 14 \cdot 12$. Tuttavia, dobbiamo necessariamente dividere questo numero per tutte le permutazioni possibili di 5 persone, ovvero 5!. In formula:
+	
+	\[
+		\frac{\frac{20 \cdot 18 \cdot 16 \cdot 14 \cdot 12}{5!}}{ 15504} = \frac{168}{323}
+	\]
+	
+	Nota bene: vi sono svariati modi di risolvere questo esercizio: usando le disposizioni, le combinazioni, o un po' e un po' (come qua sopra). In generale, molti esercizi ammettono più ragionamenti che vanno benissimo finché si spiega perché si è fatta una scelta piuttosto che un'altra. Ripeterlo a parole aiuta tantissimo (per inciso, ha aiutato me mentre scrivevo queste dispense).
 \end{proof}
 
 \begin{theorem}[ex. Esercizio A]
-Mario ha 8 amici e vuole invitarne 5 a cena. In quanti modi può farlo se sa che due amici sono una coppia e devono essere invitati assieme? 
+	Mario ha 8 amici e vuole invitarne 5 a cena. In quanti modi può farlo se sa che due amici sono una coppia e devono essere invitati assieme?
 \end{theorem}
 
 \begin{proof}
-Consideriamo prima il caso in cui nessuno dei due amici della coppia verrà invitato. Allora in quel caso avremo ${6 \choose 5}$ possibili combinazioni. Se dobbiamo necessariamente invitare entrambi gli amici, invece, rimarremo con ${6 \choose 3}$ combinazioni. In formula:
-
-$${6 \choose 5} + {6 \choose 3} = 26$$
-
+	Consideriamo prima il caso in cui nessuno dei due amici della coppia verrà invitato. Allora in quel caso avremo $\binom{6}{5}$ possibili combinazioni. Se dobbiamo necessariamente invitare entrambi gli amici, invece, rimarremo con $\binom{6}{3}$ combinazioni. In formula:
+	
+	\[
+		\binom{6}{5} + \binom{6}{3} = 26
+	\]
+	
 \end{proof}
 
 \begin{theorem}[ex. Esercizio A parte 2]
-Supponendo Mario sia italiano e i suoi 8 amici siano 4 italiani, 2 cinesi e 2 americani. Sempre volendo invitarne 5 a cena, in quanti modi può farlo se:
-\begin{enumerate}
-    \item vuole una cena multietnica?
-    \item vuole che ogni invitato abbia almeno una persona presente alla cena (lui incluso) che parla la sua lingua? [Questo punto è separato dal precedente, quindi la cena non deve necessariamente essere multietnica.]
-\end{enumerate}
+	Supponendo Mario sia italiano e i suoi 8 amici siano 4 italiani, 2 cinesi e 2 americani. Sempre volendo invitarne 5 a cena, in quanti modi può farlo se:
+	\begin{enumerate}
+		\item vuole una cena multietnica?
+		\item vuole che ogni invitato abbia almeno una persona presente alla cena (lui incluso) che parla la sua lingua? [Questo punto è separato dal precedente, quindi la cena non deve necessariamente essere multietnica.]
+	\end{enumerate}
 \end{theorem}
 
 \renewcommand\qedsymbol{$\square$}
 
 \begin{proof}[Punto 1.]
-i) Affinché la cena possa essere multietnica, è sufficiente che venga invitato sia un americano sia un cinese. Per arrivare al risultato, calcoliamo le permutazioni totali e sottraiamo le "cene non multietniche".
-
-\begin{itemize}
-\item permutazioni totali: ${8 \choose 5}$ = 56
-\item cene senza italiani: 0, Mario è italiano
-\item cene con solo un cinese o solo un americano, ma non entrambi: 4. Gli italiani verranno per forza scelti tutti, l'ultimo slot può essere occupato da uno dei cinesi o degli americani:
-\end{itemize}
-
-\begin{verbatim}
-   I I I I C1
-   I I I I C2
-   I I I I A1
-   I I I I A2
-\end{verbatim}
-
-\begin{itemize}
-     \item cene con entrambi i cinesi o entrambi gli americani: in questo caso gli italiani scelti rimanenti saranno 3, quindi dobbiamo contarne le combinazioni sia nel caso in cui prendiamo entrambi gli americani, sia in quello in cui prendiamo entrambi i cinesi:
-\end{itemize}
-
-\begin{verbatim}
-   ? ? ? A1 A2
-   ? ? ? C1 C2
-\end{verbatim}
-
-Per entrambi i casi, avremo ${4 \choose 3}$ combinazioni.
-
-Il totale di combinazioni NON legali è quindi $4 + 4 + 4 = 12$. Abbiamo quindi $56 - 12 = 44$ cene multietniche. \end{proof}
+	i) Affinché la cena possa essere multietnica, è sufficiente che venga invitato sia un americano sia un cinese. Per arrivare al risultato, calcoliamo le permutazioni totali e sottraiamo le "cene non multietniche".
+	
+	\begin{itemize}
+		\item permutazioni totali: $\binom{8}{5}$ = 56
+		\item cene senza italiani: 0, Mario è italiano
+		\item cene con solo un cinese o solo un americano, ma non entrambi: 4. Gli italiani verranno per forza scelti tutti, l'ultimo slot può essere occupato da uno dei cinesi o degli americani:
+	\end{itemize}
+	
+	\begin{verbatim}
+    I I I I C1
+    I I I I C2
+    I I I I A1
+    I I I I A2
+	\end{verbatim}
+	
+	\begin{itemize}
+		\item cene con entrambi i cinesi o entrambi gli americani: in questo caso gli italiani scelti rimanenti saranno 3, quindi dobbiamo contarne le combinazioni sia nel caso in cui prendiamo entrambi gli americani, sia in quello in cui prendiamo entrambi i cinesi:
+	\end{itemize}
+	
+	\begin{verbatim}
+    ? ? ? A1 A2
+    ? ? ? C1 C2
+	\end{verbatim}
+	
+	Per entrambi i casi, avremo $\binom{4}{3}$ combinazioni.
+	
+	Il totale di combinazioni NON legali è quindi $4 + 4 + 4 = 12$. Abbiamo quindi $56 - 12 = 44$ cene multietniche.
+\end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 2.]
-Partiamo dal presupposto che, per necessità di numeri, Mario avrà per forza un invitato italiano: i 2 americani e 2 cinesi non bastano a coprire i 5 slot previsti a cena. Possiamo quindi intraprendere varie scelte:
-
-\begin{itemize}
-     \item invitare sia la coppia di americani che quella di cinesi: 4 scelte possibili (gli italiani rimanenti)
-     \item invitare solo la coppia di americani: ${4 \choose 3}$ modi possibili (devo per forza scegliere dagli italiani, non posso invitare solo un cinese)
-     \item invitare solo la coppia di cinesi: ${4 \choose 3}$
-\end{itemize}
-
-Tutto ciò ammonta a $4 + 4 + 4 = 12$  modi possibili.
-
+	Partiamo dal presupposto che, per necessità di numeri, Mario avrà per forza un invitato italiano: i 2 americani e 2 cinesi non bastano a coprire i 5 slot previsti a cena. Possiamo quindi intraprendere varie scelte:
+	
+	\begin{itemize}
+		\item invitare sia la coppia di americani che quella di cinesi: 4 scelte possibili (gli italiani rimanenti)
+		\item invitare solo la coppia di americani: $\binom{4}{3}$ modi possibili (devo per forza scegliere dagli italiani, non posso invitare solo un cinese)
+		\item invitare solo la coppia di cinesi: $\binom{4}{3}$
+	\end{itemize}
+	
+	Tutto ciò ammonta a $4 + 4 + 4 = 12$  modi possibili.
+	
 \end{proof}
 
 \renewcommand\qedsymbol{$\square$}
 
 \begin{theorem}[ex. Esercizio 5]
-\label{ex:carte:almeno}
-Si consideri un mazzo di 40 carte (10 carte distinte per ciascuno dei quattro semi).
-
-\begin{enumerate}
-    \item Quanti insiemi di 5 carte si possono avere?
-    \item Quanti insiemi di 5 carte possono avere 4 assi?
-    \item Quanti insiemi di 5 carte possono avere 4 carte di uguale valore?
-    \item Quanti insiemi di 5 carte possono avere 2 assi?
-    \item Quanti insiemi di 5 carte possono avere almeno 2 assi?
-    \item Quanti insiemi di 5 carte possono avere due coppie di carte di uguale valore, ma distinte fra loro?
-\end{enumerate}
+	\label{ex:carte:almeno}
+	Si consideri un mazzo di 40 carte (10 carte distinte per ciascuno dei quattro semi).
+	
+	\begin{enumerate}
+		\item Quanti insiemi di 5 carte si possono avere?
+		\item Quanti insiemi di 5 carte possono avere 4 assi?
+		\item Quanti insiemi di 5 carte possono avere 4 carte di uguale valore?
+		\item Quanti insiemi di 5 carte possono avere 2 assi?
+		\item Quanti insiemi di 5 carte possono avere almeno 2 assi?
+		\item Quanti insiemi di 5 carte possono avere due coppie di carte di uguale valore, ma distinte fra loro?
+	\end{enumerate}
 \end{theorem}
 
 \begin{proof}[Punto 1.]
-In questo caso è sufficiente calcolare la combinazione di 5 carte scelte da un mazzo di 40: ${40 \choose 5}$ = 658008
+	In questo caso è sufficiente calcolare la combinazione di 5 carte scelte da un mazzo di 40: $\binom{40}{5}$ = 658008
 \end{proof}
 
 \begin{proof}[Punto 2.]
-La nostra mano ha il seguente aspetto:
-
-\begin{verbatim}
-     A1 A2 A3 A4 ?
-\end{verbatim}
-
-dove \verb=A1, A2, A3, A4= sono gli unici quattro assi del mazzo. Dobbiamo decidere quale è la quinta carta, ma non avendo vincoli possiamo scegliere una qualunque delle 36 carte rimanenti. 
+	La nostra mano ha il seguente aspetto:
+	
+	\begin{verbatim}
+    A1 A2 A3 A4 ?
+	\end{verbatim}
+	
+	dove \verb=A1, A2, A3, A4= sono gli unici quattro assi del mazzo. Dobbiamo decidere quale è la quinta carta, ma non avendo vincoli possiamo scegliere una qualunque delle 36 carte rimanenti.
 \end{proof}
 
 \begin{proof}[Punto 3.]
-Questo è equivalente all'esercizio equivalente, ma ci viene chiesto di contare tutte le mani con quattro carte di uguale valore. Allora moltiplichiamo 36 per tutte e 10 le carte possibili del mazzo. $36 \cdot 10 = 360$
+	Questo è equivalente all'esercizio equivalente, ma ci viene chiesto di contare tutte le mani con quattro carte di uguale valore. Allora moltiplichiamo 36 per tutte e 10 le carte possibili del mazzo. $36 \cdot 10 = 360$
 \end{proof}
 
 \begin{proof}[Punto 4.]
-Procediamo ora utilizzando la definizione di combinazione, ovvero prima calcoliamo le disposizioni possibili delle carte e poi dividiamo il risultato per le permutazioni possibili. In realtà questo approccio è sempre possibile, ma certe volte risulta più intuitivo di altre]. La prima carta possiamo sceglierla dai 4 assi possibili, la seconda dai tre assi rimanenti. La terza ora va scelta da tutte le carte rimaste, tranne (IMPORTANTE) non gli assi rimanenti. Idem per la quarta e la quinta. 
-Otteniamo $4 \cdot 3 \cdot 36 \cdot 35 \cdot 34$, dove andiamo a dividere per $2!$ (le permutazioni dei due assi) e $3!$ (le permutazioni delle tre carte rimanenti):
-
-$$
-\frac{4\cdot3}{2!}\cdot\frac{36\cdot35\cdot34}{3!} = 42840
-$$
+	Procediamo ora utilizzando la definizione di combinazione, ovvero prima calcoliamo le disposizioni possibili delle carte e poi dividiamo il risultato per le permutazioni possibili. In realtà questo approccio è sempre possibile, ma certe volte risulta più intuitivo di altre]. La prima carta possiamo sceglierla dai 4 assi possibili, la seconda dai tre assi rimanenti. La terza ora va scelta da tutte le carte rimaste, tranne (IMPORTANTE) non gli assi rimanenti. Idem per la quarta e la quinta.
+	Otteniamo $4 \cdot 3 \cdot 36 \cdot 35 \cdot 34$, dove andiamo a dividere per $2!$ (le permutazioni dei due assi) e $3!$ (le permutazioni delle tre carte rimanenti):
+	
+	\[
+		\frac{4\cdot3}{2!}\cdot\frac{36\cdot35\cdot34}{3!} = 42840
+    \]
 \end{proof}
 
-\begin{proof}[Punto 5.] 
-Questo esercizio può essere apparentemente risolto in maniera simile al precedente, contando il fatto che una volta scelti i $4 \cdot 3$ assi delle altre carte ce ne frega ben poco e possiamo sceglierle a piacere:
-
-$$
-\frac{4\cdot3}{2!}\cdot\frac{38\cdot37\cdot36}{3!} = 50616
-$$
-
-che è equivalente alla tua formula ${4 \choose 2}{38 \choose 3}$. Tuttavia, questa non è il modo giusto per procedere. Una idea può essere:
-
-$$
-{4 \choose 2}{36 \choose 3} + {4 \choose 3}{36 \choose 2} + {4 \choose 4}{36 \choose 1} = 45396
-$$
-
-In questo modo, il primo termine (preso dall'esercizio precedente), ${4 \choose 2}{36 \choose 3}$, viene sommato a due termini che includono il caso in cui si scelgono tre assi e e due altre carte ${4 \choose 3}{36 \choose 2}$, e il caso in cui si scelgono tutti e 4 gli assi e una dalle 36 carte rimanenti ${4 \choose 4}{36 \choose 1}$. 
-
-Questo è perché, da un punto di vista probabilistico, l'evento "viene pescata una mano contenente due assi" è incompatibile con l'evento "la mano ne contiene tre" e "la mano ne contiene quattro". Non possiamo considerarlo come un unico evento, ma dobbiamo contare i tre casi separatamente - sono infatti eventi incompatibili. La prima soluzione, concettualmente, sta quindi calcolando le combinazioni possibili di 5 carte dove 2 sono prese da 4 assi, e le altre 3 da un mazzo ipotetico di 38 carte (che in teoria conterrebbero i due assi scartati). In questo modo, però, sta considerando più assi di quanti ve ne siano: come si può sapere quali dei due assi nel primo "mazzo" devono essere tolti e conteggiati nel secondo?
-
+\begin{proof}[Punto 5.]
+	Questo esercizio può essere apparentemente risolto in maniera simile al precedente, contando il fatto che una volta scelti i $4 \cdot 3$ assi delle altre carte ce ne frega ben poco e possiamo sceglierle a piacere:
+	
+	\[
+		\frac{4\cdot3}{2!}\cdot\frac{38\cdot37\cdot36}{3!} = 50616
+    \]
+	
+	che è equivalente alla tua formula $\binom{4}{2}\binom{38}{3}$. Tuttavia, questa non è il modo giusto per procedere. Una idea può essere:
+	
+	\[
+		\binom{4}{2}\binom{36}{3} + \binom{4}{3}\binom{36}{2} + \binom{4}{4}\binom{36}{1} = 45396
+    \]
+	
+	In questo modo, il primo termine (preso dall'esercizio precedente), $\binom{4}{2}\binom{36}{3}$, viene sommato a due termini che includono il caso in cui si scelgono tre assi e e due altre carte $\binom{4}{3}\binom{36}{2}$, e il caso in cui si scelgono tutti e 4 gli assi e una dalle 36 carte rimanenti $\binom{4}{4}\binom{36}{1}$.
+	
+	Questo è perché, da un punto di vista probabilistico, l'evento "viene pescata una mano contenente due assi" è incompatibile con l'evento "la mano ne contiene tre" e "la mano ne contiene quattro". Non possiamo considerarlo come un unico evento, ma dobbiamo contare i tre casi separatamente - sono infatti eventi incompatibili. La prima soluzione, concettualmente, sta quindi calcolando le combinazioni possibili di 5 carte dove 2 sono prese da 4 assi, e le altre 3 da un mazzo ipotetico di 38 carte (che in teoria conterrebbero i due assi scartati). In questo modo, però, sta considerando più assi di quanti ve ne siano: come si può sapere quali dei due assi nel primo "mazzo" devono essere tolti e conteggiati nel secondo?
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
-\begin{proof}[Punto 6.] 
-La richiesta può essere parafrasata nella seguente maniera: "le prime due carte devono essere una coppia di carte di uguale valore, le seconde due carte una coppia di carte di uguale valore ma diverso dalle prime due, la quinta non ha limiti".
-
-Per poter scegliere i valori delle due coppie, abbiamo ${10 \choose 2}$ metodi diversi per farlo (per i 10 valori possibili che ottengono le carte). Abbiamo quindi una situazione del genere:
-\begin{verbatim}
+\begin{proof}[Punto 6.]
+	La richiesta può essere parafrasata nella seguente maniera: "le prime due carte devono essere una coppia di carte di uguale valore, le seconde due carte una coppia di carte di uguale valore ma diverso dalle prime due, la quinta non ha limiti".
+	
+	Per poter scegliere i valori delle due coppie, abbiamo $\binom{10}{2}$ metodi diversi per farlo (per i 10 valori possibili che ottengono le carte). Abbiamo quindi una situazione del genere:
+	\begin{verbatim}
     V1 ? V2 ? ?
-\end{verbatim}
-dove V1, V2 sono i due valori (diversi!) scelti. Entrambi i valori hanno ${4 \choose 2}$ coppie possibili, scelte dai 4 semi. Infine, moltiplichiamo tutto per le 32 carte rimanenti ($36 - 2 - 2$, in quanto dobbiamo scartare le carte uguali alle due coppie che non sono state scelte prima). Otteniamo quindi:
-
-$$
-{10 \choose 2} \cdot {4 \choose 2} \cdot {4 \choose 2} \cdot 32
-$$
+	\end{verbatim}
+	dove V1, V2 sono i due valori (diversi!) scelti. Entrambi i valori hanno $\binom{4}{2}$ coppie possibili, scelte dai 4 semi. Infine, moltiplichiamo tutto per le 32 carte rimanenti ($36 - 2 - 2$, in quanto dobbiamo scartare le carte uguali alle due coppie che non sono state scelte prima). Otteniamo quindi:
+	
+	\[
+		\binom{10}{2} \cdot \binom{4}{2} \cdot \binom{4}{2} \cdot 32
+    \]
 \end{proof}
 
 \begin{theorem}[ex. Esercizio 14]
-Quanti sono i numeri di 6 cifre che non contengono 0, hanno la cifra 1 per 2 volte e la cifra 2 per 2 volte?
+	Quanti sono i numeri di 6 cifre che non contengono 0, hanno la cifra 1 per 2 volte e la cifra 2 per 2 volte?
 \end{theorem}
 
 \begin{proof}
-Dobbiamo contare come possiamo occupare i due spazi rimasti con 7 cifre (dalla 3 alla 9). Se queste due cifre sono uguali, allora abbiamo che i possibili numeri sono 
-
-$$\frac{6! \cdot 7}{2! \cdot 2! \cdot 2!}$$
-
-ovvero le permutazioni di 6 cifre di cui 2 uguali tra loro (la cifra), altre 2 uguali tra loro (la cifra 1) e altre 2 uguali tra loro (la cifra 2). Il tutto moltiplicato per 7, ovvero le possibili cifre. In sintesi:
- 
-$$\frac{7!}{2! \cdot 2! \cdot 2!} = 630$$
-
-Per calcolare la seconda parte, sappiamo che le due cifre sono diverse e quindi possiamo calcolare le disposizioni moltiplicando le combinazioni di 2 oggetti presi da un gruppo di 7, per le permutazioni di questi possibili oggetti (come detto un po' sopra, deriva dalla formula delle combinazioni stesse). Quindi, una combinazione ${7 \choose 2}$ per le permutazioni simili a prima, con un 2! in meno (perché le due cifre non sono più uguali)
- 
-$${7 \choose 2} \cdot \frac{6!}{2! \cdot 2!} = 3780$$
-
-Queste due vanno unite, quindi otterremmo $630 + 3780 = 4410$.
+	Dobbiamo contare come possiamo occupare i due spazi rimasti con 7 cifre (dalla 3 alla 9). Se queste due cifre sono uguali, allora abbiamo che i possibili numeri sono
+	
+	\[
+		\frac{6! \cdot 7}{2! \cdot 2! \cdot 2!}
+	\]
+	
+	ovvero le permutazioni di 6 cifre di cui 2 uguali tra loro (la cifra), altre 2 uguali tra loro (la cifra 1) e altre 2 uguali tra loro (la cifra 2). Il tutto moltiplicato per 7, ovvero le possibili cifre. In sintesi:
+	
+	\[
+		\frac{7!}{2! \cdot 2! \cdot 2!} = 630
+	\]
+	
+	Per calcolare la seconda parte, sappiamo che le due cifre sono diverse e quindi possiamo calcolare le disposizioni moltiplicando le combinazioni di 2 oggetti presi da un gruppo di 7, per le permutazioni di questi possibili oggetti (come detto un po' sopra, deriva dalla formula delle combinazioni stesse). Quindi, una combinazione $\binom{7}{2}$ per le permutazioni simili a prima, con un 2! in meno (perché le due cifre non sono più uguali)
+	
+	\[
+		\binom{7}{2} \cdot \frac{6!}{2! \cdot 2!} = 3780
+	\]
+	
+	Queste due vanno unite, quindi otterremmo $630 + 3780 = 4410$.
 \end{proof}
 
 
 \subsection{Recupero lezione 02/04/2021}
 
 \begin{theorem}[ex. Esercizio 21]
-Vi sono 20000 euro da investire su 4 possibili titoli azionari. Ogni investimento deve essere un multiplo di 1000 euro, ma c’è un investimento minimo che dipende dal titolo azionario. Gli investimenti minimi sono rispettivamente di 4, 3, 2 e 2 migliaia di euro. Quante differenti strategie di investimento sono possibili se
-\begin{itemize}
-    \item si vuole investire su ciascuno dei 4 titoli azionari;
-    \item si vuole investire su almeno 3 dei 4 titoli azionari.
-\end{itemize}
+	Vi sono 20000 euro da investire su 4 possibili titoli azionari. Ogni investimento deve essere un multiplo di 1000 euro, ma c’è un investimento minimo che dipende dal titolo azionario. Gli investimenti minimi sono rispettivamente di 4, 3, 2 e 2 migliaia di euro. Quante differenti strategie di investimento sono possibili se
+	\begin{itemize}
+		\item si vuole investire su ciascuno dei 4 titoli azionari;
+		\item si vuole investire su almeno 3 dei 4 titoli azionari.
+	\end{itemize}
 \end{theorem}
 
 \begin{proof}[Punto 1.]
-Prima di tutto, calcoliamo il minimo investimento necessario se andiamo a investire su tutti e 4 i titoli. Leggendo il testo, è chiaro come sia necessario impegnare necessariamente almeno $4 + 3 + 2 + 2 = 11$ migliaia di euro. Le restanti 9 migliaia possono essere quindi distribuite tra i quattro titoli. Questo è equivalente a una combinazione con ripetizione di 9 elementi scelti tra 4. Ponendo $n = 4$ e $k = 9$, abbiamo
-
-$$
-{4 + 9 - 1 \choose 9} = {12 \choose 9} = \frac{12!}{9! \cdot 11!}
-$$
+	Prima di tutto, calcoliamo il minimo investimento necessario se andiamo a investire su tutti e 4 i titoli. Leggendo il testo, è chiaro come sia necessario impegnare necessariamente almeno $4 + 3 + 2 + 2 = 11$ migliaia di euro. Le restanti 9 migliaia possono essere quindi distribuite tra i quattro titoli. Questo è equivalente a una combinazione con ripetizione di 9 elementi scelti tra 4. Ponendo $n = 4$ e $k = 9$, abbiamo
+	
+	\[
+		\binom{4 + 9 - 1}{9} = \binom{12}{9} = \frac{12!}{9! \cdot 11!}
+    \]
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 2.]
-Il metodo risolutivo è simile a quanto visto prima, con la differenza che ora al risultato precedente dobbiamo andare a sommare i casi in cui si scelgono 3 dei 4 titoli azionari (stessa solfa dell'esercizio \ref{ex:carte:almeno} al punto che riguardava "almeno 2 carte"). A ${12 \choose 9}$ sommiamo quindi i tre casi in cui investiamo su tre dei quattro titoli, ignorando il quarto:
-\begin{itemize}
-    \item Escludiamo il terzo (idem il quarto): $4+3+2=9$ investimento iniziale, $11$ migliaia rimanenti: ${3 + 11 - 1 \choose 11} = {13 \choose 11}$
-    \item Escludiamo il secondo: $4+2+2=8$ investimento iniziale, $12$ migliaia rimanenti: ${3 + 12 - 1 \choose 12} = {14 \choose 12}$
-    \item Escludiamo il primo: $3+2+2=7$ investimento iniziale, $13$ migliaia rimanenti: ${3 + 13 - 1 \choose 13} = {15 \choose 13}$
-\end{itemize}
-
-Sommando:
-
-$$
-{12 \choose 9} + {13 \choose 11} + {13 \choose 11} + {14 \choose 12} + {15 \choose 13}
-$$
-
+	Il metodo risolutivo è simile a quanto visto prima, con la differenza che ora al risultato precedente dobbiamo andare a sommare i casi in cui si scelgono 3 dei 4 titoli azionari (stessa solfa dell'esercizio \ref{ex:carte:almeno} al punto che riguardava "almeno 2 carte"). A $\binom{12}{9}$ sommiamo quindi i tre casi in cui investiamo su tre dei quattro titoli, ignorando il quarto:
+	\begin{itemize}
+		\item Escludiamo il terzo (idem il quarto): $4+3+2=9$ investimento iniziale, $11$ migliaia rimanenti: $\binom{3 + 11 - 1}{11} = \binom{13}{11}$
+		\item Escludiamo il secondo: $4+2+2=8$ investimento iniziale, $12$ migliaia rimanenti: $\binom{3 + 12 - 1}{12} = \binom{14}{12}$
+		\item Escludiamo il primo: $3+2+2=7$ investimento iniziale, $13$ migliaia rimanenti: $\binom{3 + 13 - 1}{13} = \binom{15}{13}$
+	\end{itemize}
+	
+	Sommando:
+	
+	\[
+		\binom{12}{9} + \binom{13}{11} + \binom{13}{11} + \binom{14}{12} + \binom{15}{13}
+    \]
+	
 \end{proof}
 
 \subsection{Soluzione esempio provetta}
@@ -328,143 +343,136 @@ Le soluzioni di seguito non sono originali, ma ricavate (e adattate, con spiegaz
 \renewcommand\qedsymbol{$\square$}
 
 \begin{theorem}[ex. Esercizio 1]
-In una schedina del Totocalcio sono inserite ogni settimana 13 partite. Compilare una colonna significa prevedere un possibile esito tra \verb=1=, \verb=X=, \verb=2= per ognuna delle partite. Per ogni esito indovinato, il giocatore guadagna un punto.
-\begin{itemize}
-    \item In quanti modi si può compilare una colonna? 313
-    \item Supponendo che gli esiti delle partite siano tutti equiprobabili, qual è la probabilità di fare 13 punti? 1/313
-    \item Supponendo di voler inserire l’esito 1 per otto partite, l’esito X per tre partite e l’esito 2 per due partite, in quanti modi si può compilare una colonna?
-\end{itemize}
+	In una schedina del Totocalcio sono inserite ogni settimana 13 partite. Compilare una colonna significa prevedere un possibile esito tra \verb=1=, \verb=X=, \verb=2= per ognuna delle partite. Per ogni esito indovinato, il giocatore guadagna un punto.
+	\begin{itemize}
+		\item In quanti modi si può compilare una colonna? 313
+		\item Supponendo che gli esiti delle partite siano tutti equiprobabili, qual è la probabilità di fare 13 punti? 1/313
+		\item Supponendo di voler inserire l’esito 1 per otto partite, l’esito X per tre partite e l’esito 2 per due partite, in quanti modi si può compilare una colonna?
+	\end{itemize}
 \end{theorem}
 
 \begin{proof}[Punto 1]
-Il primo punto si risolve al volo utilizzando le disposizioni con ripetizione: abbiamo 13 partite diverse, 3 modi per compilarle: la soluzione che cerchiamo è $3^{13} = 1594323$.
+	Il primo punto si risolve al volo utilizzando le disposizioni con ripetizione: abbiamo 13 partite diverse, 3 modi per compilarle: la soluzione che cerchiamo è $3^{13} = 1594323$.
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 2]
-Il secondo punto si ricava altrettanto in fretta, osservando come solo una di queste $3^{13}$ combinazioni sia a noi favorevole: quella in cui azzecchiamo tutti gli esiti. Otteniamo quindi $\frac{1}{3^{13}}$.
+	Il secondo punto si ricava altrettanto in fretta, osservando come solo una di queste $3^{13}$ combinazioni sia a noi favorevole: quella in cui azzecchiamo tutti gli esiti. Otteniamo quindi $\frac{1}{3^{13}}$.
 \end{proof}
 \begin{proof}[Punto 3]
-Il terzo punto si può affrontare nella maniera seguente. Le otto partite sulla quale vogliamo inserire \verb=1= si possono scegliere con ${13 \choose 8}$. Quelle con \verb=X=, analogamente, con ${(13 - 8) \choose 3}$. Le due rimanenti dovranno avere per forza \verb=2=. Abbiamo quindi:
-$$
-{13 \choose 8} \cdot {5 \choose 3}
-$$
+	Il terzo punto si può affrontare nella maniera seguente. Le otto partite sulla quale vogliamo inserire \verb=1= si possono scegliere con $\binom{13}{8}$. Quelle con \verb=X=, analogamente, con $\binom{(13 - 8)}{3}$. Le due rimanenti dovranno avere per forza \verb=2=. Abbiamo quindi:
+	\[
+		\binom{13}{8} \cdot \binom{5}{3}
+    \]
 \end{proof}
 
 \renewcommand\qedsymbol{$\square$}
 
 \begin{theorem}[ex. Esercizio 2]
-L’alfabeto italiano è composto da 21 lettere. Quante parole diverse di 8 lettere (non necessariamente di senso compiuto e non considerando la differenza tra maiuscole e minuscole) si possono creare in modo che:
-\begin{itemize}
-    \item inizino con la sillaba 'IO'?
-    \item inizino oppure finiscano con la sillaba 'IO'? 
-    \item siano palindrome (cioè si leggono allo stesso modo da sinistra a destra e da destra a sinistra, ad esempio ANNA, RADAR, INGEGNI, ecc ...)?
-\end{itemize}
+	L’alfabeto italiano è composto da 21 lettere. Quante parole diverse di 8 lettere (non necessariamente di senso compiuto e non considerando la differenza tra maiuscole e minuscole) si possono creare in modo che:
+	\begin{itemize}
+		\item inizino con la sillaba 'IO'?
+		\item inizino oppure finiscano con la sillaba 'IO'?
+		\item siano palindrome (cioè si leggono allo stesso modo da sinistra a destra e da destra a sinistra, ad esempio ANNA, RADAR, INGEGNI, ecc ...)?
+	\end{itemize}
 \end{theorem}
 
 \begin{proof}[Punto 1]
-Per risolvere il primo punto, notiamo che il fatto che una parola inizi con due lettere fissate per noi è equivalente a chiederci di trovare una disposizione (con ripetizione) delle sei lettere rimanenti. La sottostringa \verb=IO= poteva stare prima, dopo, in mezzo...ma poco importa. Con $21^6$ calcoliamo i casi in questione.
+	Per risolvere il primo punto, notiamo che il fatto che una parola inizi con due lettere fissate per noi è equivalente a chiederci di trovare una disposizione (con ripetizione) delle sei lettere rimanenti. La sottostringa \verb=IO= poteva stare prima, dopo, in mezzo...ma poco importa. Con $21^6$ calcoliamo i casi in questione.
 \end{proof}
 
 \begin{proof}[Punto 2]
-Il secondo punto può sembrare apparentemente semplice ma è altrettanto semplice essere tratti in inganno. In questo caso, il risultato ottenuto prima non ci verrà d'aiuto: infatti, l'esercizio chiede di calcolare quello che è la somma di tre eventi incompatibili - una parola che inizia con 'IO', una che finisce con 'IO', una che ha 'IO' su entrambi i lati. Per non incorrere in errori ulteriori, tuttavia, bisogna stare molto attenti a un dettaglio: in questo caso il fatto che una parola inizi con 'IO' implica automaticamente che NON finisca con quella sillaba (sennò ricadrebbe nel terzo caso). Stessa sorte per il secondo caso.
-
-Passando ai calcoli, abbiamo che per i primi due casi quattro lettere sono scelte liberamente, due sono fisse ('IO'), e le ultime (rispettivamente prime) due NON possono essere io. Quindi otteniamo
-$$
-1 \cdot 21 \cdot 21 \cdot 21 \cdot 21 \cdot (21 \cdot 21 - 1) = 21^6 - 21^4
-$$
-dove il primo 1 rappresenta la combinazione 'IO' iniziale (rispettivamente finale), e il termine $(21 \cdot 21 - 1)$ rappresenta le combinazioni delle ultime (rispettivamente prime) due cifre meno la combinazione 'IO'.
-
-Per il terzo caso, quattro cifre sono fissate, quindi possiamo calcolarlo semplicemente come $21^4$. Il totale è quindi $2 \cdot (21^6 - 21^4) + 21^4$.
-
-Vi è un metodo - non proposto dalle soluzioni ufficiali - più veloce, tuttavia, che invece sfrutta il risultato ottenuto nel primo punto. Semplicemente, si può prima calcolare il numero di parole senza 'IO' all'inizio e alla fine, $21^4$, e sottrarlo poi a $21^6$ (ovvero tutte le parole che iniziano, o che finiscono, con 'IO'). In ogni caso, i risultati ottenuti coincidono.
+	Il secondo punto può sembrare apparentemente semplice ma è altrettanto semplice essere tratti in inganno. In questo caso, il risultato ottenuto prima non ci verrà d'aiuto: infatti, l'esercizio chiede di calcolare quello che è la somma di tre eventi incompatibili - una parola che inizia con 'IO', una che finisce con 'IO', una che ha 'IO' su entrambi i lati. Per non incorrere in errori ulteriori, tuttavia, bisogna stare molto attenti a un dettaglio: in questo caso il fatto che una parola inizi con 'IO' implica automaticamente che NON finisca con quella sillaba (sennò ricadrebbe nel terzo caso). Stessa sorte per il secondo caso.
+	
+	Passando ai calcoli, abbiamo che per i primi due casi quattro lettere sono scelte liberamente, due sono fisse ('IO'), e le ultime (rispettivamente prime) due NON possono essere io. Quindi otteniamo
+	\[
+		1 \cdot 21 \cdot 21 \cdot 21 \cdot 21 \cdot (21 \cdot 21 - 1) = 21^6 - 21^4
+    \]
+	dove il primo 1 rappresenta la combinazione 'IO' iniziale (rispettivamente finale), e il termine $(21 \cdot 21 - 1)$ rappresenta le combinazioni delle ultime (rispettivamente prime) due cifre meno la combinazione 'IO'.
+	
+	Per il terzo caso, quattro cifre sono fissate, quindi possiamo calcolarlo semplicemente come $21^4$. Il totale è quindi $2 \cdot (21^6 - 21^4) + 21^4$.
+	
+	Vi è un metodo - non proposto dalle soluzioni ufficiali - più veloce, tuttavia, che invece sfrutta il risultato ottenuto nel primo punto. Semplicemente, si può prima calcolare il numero di parole senza 'IO' all'inizio e alla fine, $21^4$, e sottrarlo poi a $21^6$ (ovvero tutte le parole che iniziano, o che finiscono, con 'IO'). In ogni caso, i risultati ottenuti coincidono.
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 3]
-Osservando come una parola palindroma di otto lettere è determinata solo dalla sua prima metà (e non abbiamo problemi con lettere centrali), il risultato è $21^4$.
+	Osservando come una parola palindroma di otto lettere è determinata solo dalla sua prima metà (e non abbiamo problemi con lettere centrali), il risultato è $21^4$.
 \end{proof}
 
 \begin{theorem}
-In un negozio di vestiti viene esposto uno scatolone di T-shirt da uomo e da donna in saldo. Il 25\% di esse è di colore rosso, il 35\% di colore grigio e il 40\% di colore verde. 
-Una maglietta rossa è da uomo con probabilità 0.1, una grigia con probabilità 0.7 e una verde con probabilità 0.5.
-\begin{itemize}
-    \item Qual è la probabilità che una T-shirt scelta a caso nello scatolone sia da donna?
-    \item Avendo estratto una T-shirt da donna, qual è la probabilità condizionata che sia rossa, grigia o verde?
-\end{itemize}
+	In un negozio di vestiti viene esposto uno scatolone di T-shirt da uomo e da donna in saldo. Il 25\% di esse è di colore rosso, il 35\% di colore grigio e il 40\% di colore verde.
+	Una maglietta rossa è da uomo con probabilità 0.1, una grigia con probabilità 0.7 e una verde con probabilità 0.5.
+	\begin{itemize}
+		\item Qual è la probabilità che una T-shirt scelta a caso nello scatolone sia da donna?
+		\item Avendo estratto una T-shirt da donna, qual è la probabilità condizionata che sia rossa, grigia o verde?
+	\end{itemize}
 \end{theorem}
 
 \renewcommand\qedsymbol{$\square$}
 
 \begin{proof}[Punto 1]
-Poniamo D = "T-shirt da donna", R = "T-shirt rossa", G = "T-shirt grigia", V = "T-shirt verde". Utilizzando il Teorema di Bayes e la legge della probabilità totale, otteniamo:
-$$
-P(D) = P(D|R)P(R) + P(D|G)P(G) + P(D|V)P(V)
-$$
-Abbiamo che $P(R), P(G), P(V)$ ci vengono date direttamente nella prima frase dell'esercizio: $P(R) = 0.25, P(G)=0.35, P(V)=0.4$. 
-
-Per ottenere le probabilità condizionate, che possiamo leggere come "probabilità che una T-shirt sia da donna sapendo che è del colore X", dobbiamo effettuare il complemento delle probabilità fornite nella seconda frase, ricordandoci che il complemento di una probabilità inverte soltanto la probabilità (e non va a toccare la condizione). 
-
-Quindi $P(D|R) = 1 - P(M|R) = 1 - 0.1 = 0.9; P(D|G) = 1 - 0.7 = 0.3; P(D|V) = 1 - 0.5 = 0.5$. Il risultato finale, una volta terminati i calcoli, è pari a $0.53$.
+	Poniamo D = "T-shirt da donna", R = "T-shirt rossa", G = "T-shirt grigia", V = "T-shirt verde". Utilizzando il Teorema di Bayes e la legge della probabilità totale, otteniamo:
+	\[
+		P(D) = P(D|R)P(R) + P(D|G)P(G) + P(D|V)P(V)
+    \]
+	Abbiamo che $P(R), P(G), P(V)$ ci vengono date direttamente nella prima frase dell'esercizio: $P(R) = 0.25, P(G)=0.35, P(V)=0.4$.
+	
+	Per ottenere le probabilità condizionate, che possiamo leggere come "probabilità che una T-shirt sia da donna sapendo che è del colore X", dobbiamo effettuare il complemento delle probabilità fornite nella seconda frase, ricordandoci che il complemento di una probabilità inverte soltanto la probabilità (e non va a toccare la condizione).
+	
+	Quindi $P(D|R) = 1 - P(M|R) = 1 - 0.1 = 0.9; P(D|G) = 1 - 0.7 = 0.3; P(D|V) = 1 - 0.5 = 0.5$. Il risultato finale, una volta terminati i calcoli, è pari a $0.53$.
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 2]
-Ancora una volta ci viene in soccorso il Teorema di Bayes. Infatti, l'esercizio ci sta velatamente chiedendo di invertire le probabilità condizionate ottenute nel punto precedente:
-$$
-P(R|D) = \frac{P(D|R)P(R)}{P(D)} = 0.4245
-$$
-$$
-P(G|D) = \frac{P(D|G)P(G)}{P(D)} = 0.1981
-$$
-$$
-P(V|D) = \frac{P(D|V)P(V)}{P(D)} = 0.3374
-$$
-I risultati numerici seguono dalla sostituzione diretta dei termini.
+	Ancora una volta ci viene in soccorso il Teorema di Bayes. Infatti, l'esercizio ci sta velatamente chiedendo di invertire le probabilità condizionate ottenute nel punto precedente:
+	\begin{equation*}
+		\begin{split}		
+			P(R|D) & = \frac{P(D|R)P(R)}{P(D)} = 0.4245 \\
+			P(G|D) & = \frac{P(D|G)P(G)}{P(D)} = 0.1981 \\
+			P(V|D) & = \frac{P(D|V)P(V)}{P(D)} = 0.3374
+		\end{split}
+	\end{equation*}
+	I risultati numerici seguono dalla sostituzione diretta dei termini.
 \end{proof}
 
 \begin{theorem}[ex. Esercizio 5]
-Data la funzione
-$$
-f_X(n) = \begin{cases} 0 & x < 0 \\ a e^x & 0 \le x \le t \mbox{   a, t} > 0 \\ 0 & x > t \end{cases}
-$$
-dove a e t sono parametri non negativi.
-\begin{itemize}
-    \item si determini il vincolo che a e t devono rispettare affinché essa sia una pdf valida.
-    \item Fissando $t = ln 5$, si calcoli la probabilità che la relativa variabile aleatoria assuma valore nell’intervallo $[0, \frac{1}{2}] \cup [1, \frac{3}{2}]$  
-\end{itemize}
+	Data la funzione
+	\[
+		f_X(n) = \begin{cases} 0 & x < 0 \\ a e^x & 0 \le x \le t \mbox{   a, t} > 0 \\ 0 & x > t \end{cases}
+    \]
+	dove a e t sono parametri non negativi.
+	\begin{itemize}
+		\item si determini il vincolo che a e t devono rispettare affinché essa sia una pdf valida.
+		\item Fissando $t = ln 5$, si calcoli la probabilità che la relativa variabile aleatoria assuma valore nell’intervallo $[0, \frac{1}{2}] \cup [1, \frac{3}{2}]$
+	\end{itemize}
 \end{theorem}
 
 \renewcommand\qedsymbol{$\square$}
 
 \begin{proof}[Punto 1]
-Essendo a positivo, $f_X$ è sempre positiva e monotonica, dunque per verificare che sia valida dobbiamo imporre che l’integrale su $x$ sia uguale a 1, il tutto calcolato tra $0$ e $t$:
-
-$$
-\int_{-\infty}^{+\infty} f_X(x) \,dx = 1
-$$
-$$
-\int_{0}^{t} a e^x \,dx = [a e^x]^t_0 = a(e^t - 1) = 1
-$$
-$$
-a(e^t - 1) = 1 \Longrightarrow a = \frac{1}{e^t - 1}
-$$
-
+	Essendo a positivo, $f_X$ è sempre positiva e monotonica, dunque per verificare che sia valida dobbiamo imporre che l’integrale su $x$ sia uguale a 1, il tutto calcolato tra $0$ e $t$:
+	
+	\begin{gather*}
+		\int_{-\infty}^{+\infty} f_X(x) \,dx = 1 \\
+		\int_{0}^{t} a e^x \,dx = [a e^x]^t_0 = a(e^t - 1) = 1 \\
+		a(e^t - 1) = 1 \Longrightarrow a = \frac{1}{e^t - 1}
+	\end{gather*}
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 2]
-Se $t = ln 5$ allora dalla definizione $a = \frac{1}{5-1} = \frac{1}{4}$. Per calcolare il valore, applichiamo la definizione di c.d.f. $F_X$. Per calcolarla, possiamo utilizzare l'integrale calcolato al punto precedente: abbiamo quindi che $F_X(x) = a e^x$ per $x$ da $0$ a $t$. Calcolando tutto:
-$$
-(\frac{1}{4} e^{\frac{1}{2}} - \frac{1}{4} e^{0}) + (\frac{1}{4} e^{\frac{3}{2}} - \frac{1}{4} e^{1}) = 
-$$
-$$
-= \frac{1}{4} (e^{\frac{1}{2}} - 1 + e^{\frac{3}{2}} - e) = 0.6
-$$
+	Se $t = ln 5$ allora dalla definizione $a = \frac{1}{5-1} = \frac{1}{4}$. Per calcolare il valore, applichiamo la definizione di c.d.f. $F_X$. Per calcolarla, possiamo utilizzare l'integrale calcolato al punto precedente: abbiamo quindi che $F_X(x) = a e^x$ per $x$ da $0$ a $t$. Calcolando tutto:
+	\[
+		(\frac{1}{4} e^{\frac{1}{2}} - \frac{1}{4} e^{0}) + (\frac{1}{4} e^{\frac{3}{2}} - \frac{1}{4} e^{1}) =
+    \]
+	\[
+		= \frac{1}{4} (e^{\frac{1}{2}} - 1 + e^{\frac{3}{2}} - e) = 0.6
+    \]
 \end{proof}
 
 \subsection{Lezione 12/04/2021}
@@ -472,86 +480,325 @@ $$
 Visto lo scarso tempo a disposizione, le seguenti dimostrazioni sono decisamente più veloci e concise.
 
 \begin{theorem}[ex. Esercizio 20]
-14 amici si mettono in viaggio. Hanno a disposizione 1 vettura a 7 posti, una a 5 e una moto. Considerando che i proprietari dei tre mezzi vogliono guidarli, in quanti modi diversi si possono comporre gli equipaggi?
+	14 amici si mettono in viaggio. Hanno a disposizione 1 vettura a 7 posti, una a 5 e una moto. Considerando che i proprietari dei tre mezzi vogliono guidarli, in quanti modi diversi si possono comporre gli equipaggi?
 \end{theorem}
 
 \begin{proof}
-Per risolvere questo esercizio, adoperiamo delle combinazioni semplici. In questo caso, non è necessario né utilizzare permutazioni (perché tutti e tre i veicoli sono distinguibili), né disposizioni, in quanto ci interessano solo i modi in cui comporre l'equipaggio e non l'ordine.
-
-In formula, scegliamo 6 persone per la prima macchina dalle 11 rimanenti (tolti gli autisti), altre 3 dalle 5 rimanenti, e per la moto rimane una scelta obbligata:
-$$
-{11 \choose 6} \cdot {5 \choose 3} \cdot 1
-$$
+	Per risolvere questo esercizio, adoperiamo delle combinazioni semplici. In questo caso, non è necessario né utilizzare permutazioni (perché tutti e tre i veicoli sono distinguibili), né disposizioni, in quanto ci interessano solo i modi in cui comporre l'equipaggio e non l'ordine.
+	
+	In formula, scegliamo 6 persone per la prima macchina dalle 11 rimanenti (tolti gli autisti), altre 3 dalle 5 rimanenti, e per la moto rimane una scelta obbligata:
+	\[
+		\binom{11}{6} \cdot \binom{5}{3} \cdot 1
+    \]
 \end{proof}
 
 \begin{theorem}[ex. Esempio 2a]
-Data una variabile aleatoria X e la sua p.m.f. $P(i) = c \frac{\lambda^i}{i!}$ dove $i = 0, 1, 2 \cdots, \lambda > 0$. Si calcoli
-\begin{itemize}
-    \item $P{X=0}$
-    \item $P{X>2}$
-\end{itemize}
+	Data una variabile aleatoria X e la sua p.m.f. $P(i) = c \frac{\lambda^i}{i!}$ dove $i = 0, 1, 2 \cdots, \lambda > 0$. Si calcoli
+	\begin{itemize}
+		\item $P{X=0}$
+		\item $P{X>2}$
+	\end{itemize}
 \end{theorem}
 
 \begin{proof}
-(da fare; vedere dispense della prof.)
-\end{proof}
+	Affinché quella funzione sia una p.m.f., dobbiamo imporre che:
 
-\begin{theorem}
-Ci sono 10 copie di un libro da distribuire in 5 scuole. In quanti modi possono essere distribuiti?
-\end{theorem}
+	\[
+		\sum_{i = 0}^{\infty} P(i) = 1
+    \]
 
-\begin{proof}
-In questo caso, possiamo adoperarci con delle combinazioni con ripetizione per risolvere velocemente l'esercizio. Possiamo vederlo in due modi: o dobbiamo "assegnare" 5 scuole ai 10 libri, potendole assegnare con ripetizione, oppure dobbiamo assegnare "con ripetizione" 10 copie dello stesso libro alle 5 scuole. In ogni caso, è importante fissare $k$ come i libri (ovvero l'oggetto non distinguibile, in quanto sono copie dello stesso libro) e $n$ come le scuole, ovvero l'oggetto distinguibile. In formula:
-$$
-{5 + 10 - 1 \choose 10} = {14 \choose 10}
-$$
-\end{proof}
+	Possiamo avvalerci della serie seguente per risolvere la sommatoria:
 
-\begin{theorem}
-La percentuale di studenti iscritti al secondo anno di ingegneria che frequenta il corso di statistica è del 90\%. Si suppone che, tra questi, il 90\% supererà l'esame. Supponendo inoltre che la percentuale di studenti che non supereranno l'esame sia del 12\%, si calcoli:
-\begin{itemize}
-    \item qual è la percentuale di studenti che non supererà l'esame tra quelli che non frequentano il corso;
-    \item qual è la percentuale di studenti che non frequentano tra quelli che si ipotizza non supereranno l'esame.
-\end{itemize}
-\end{theorem}
+	\[
+		e^x = \sum_{i = 0}^{\infty} \frac{x^i}{i!}= 1
+	\]
 
-\renewcommand\qedsymbol{$\square$}
-
-\begin{proof}[Punto 1.]
-Siano F = "Uno studente frequenta il corso", E = "Uno studente supera il corso". Allora: $P(F) = 0.9, P(E|F) = 0.9, P(\bar{E}) = 0.12$, a partire dai dati forniti dal testo.
-
-Il primo punto ci chiede $P(\bar{E}|\bar{F})$. Utilizzando il teorema della probabilità totale, possiamo ricavarcelo nel seguente modo:
-
-$$
-P(\bar{E}|F)P(F) + P(\bar{E}|\bar{F})P(\bar{F}) = P(\bar{E}) 
-$$
-$$
-P(\bar{E}|\bar{F}) = \frac{P(\bar{E}) - P(\bar{E}|F)P(F)}{P(\bar{F})}
-$$
-$$
-1 - P(E|\bar{F}) = \frac{P(\bar{E}) - P(\bar{E}|F)P(F)}{P(\bar{F})}
-$$
-$$
-P(E|\bar{F}) = 1 - \frac{P(\bar{E}) - P(\bar{E}|F)P(F)}{P(\bar{F})}
-$$
+	Otteniamo quindi $ce^\lambda = 1 \Rightarrow c = e^{-\lambda}$. Allora $P{x = 0}$ diventa $e^{-\lambda}\frac{\lambda^0}{0!} = e^{-\lambda}$
 \end{proof}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \begin{proof}[Punto 2.]
-(da fare)
+	\begin{gather*}
+		P{X > 2} = 1 - P{X \le 2} = 1 - P{x = 0} - P{x = 1} - P{x = 2} \\
+		1 - e^{-\lambda} - e^{-\lambda}\lambda  - e^{-\lambda}	\frac{\lambda^2}{2}
+	\end{gather*}
 \end{proof}
 
 \begin{theorem}
-Il tempo di vita di un dato tipo di pile per la radio è una variabile aleatoria la cui densità è data da
-$$
-f(x) = \begin{cases} 0 & x \le 100 \\ \frac{100}{x^2} & x > 100 \end{cases}
-$$
-Qual è la probabilità che esattamente 2 pile della radio su 5 debbano essere sostituite entro le 150 ore di attività? Si supponga che gli eventi $E_i, i = 1, 2, 3, 4, 5$ = "l'$i$-esima pila andrà rimpiazzata entro questo tempo", siano indipendenti.
+	Ci sono 10 copie di un libro da distribuire in 5 scuole. In quanti modi possono essere distribuiti?
 \end{theorem}
 
 \begin{proof}
-(da fare: vedere le dispense fornite dalla prof.)
+	In questo caso, possiamo adoperarci con delle combinazioni con ripetizione per risolvere velocemente l'esercizio. Possiamo vederlo in due modi: o dobbiamo "assegnare" 5 scuole ai 10 libri, potendole assegnare con ripetizione, oppure dobbiamo assegnare "con ripetizione" 10 copie dello stesso libro alle 5 scuole. In ogni caso, è importante fissare $k$ come i libri (ovvero l'oggetto non distinguibile, in quanto sono copie dello stesso libro) e $n$ come le scuole, ovvero l'oggetto distinguibile. In formula:
+	\[
+		\binom{5 + 10 - 1}{10} = \binom{14}{10}
+    \]
+\end{proof}
+
+\begin{theorem}
+	La percentuale di studenti iscritti al secondo anno di ingegneria che frequenta il corso di statistica è del 90\%. Si suppone che, tra questi, il 90\% supererà l'esame. Supponendo inoltre che la percentuale di studenti che non supereranno l'esame sia del 12\%, si calcoli:
+	\begin{itemize}
+		\item qual è la percentuale di studenti che non supererà l'esame tra quelli che non frequentano il corso;
+		\item qual è la percentuale di studenti che non frequentano tra quelli che si ipotizza non supereranno l'esame.
+	\end{itemize}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1.]
+	Siano F = "Uno studente frequenta il corso", E = "Uno studente supera il corso". Allora: $P(F) = 0.9, P(E|F) = 0.9, P(\overline{E}) = 0.12$, a partire dai dati forniti dal testo.
+	
+	Il primo punto ci chiede $P(\overline{E}|\overline{F})$. Utilizzando il teorema della probabilità totale, possiamo ricavarcelo nel seguente modo:
+	
+	\begin{equation*}
+		\begin{split}
+			P(\overline{E}) & = P(\overline{E}|F)P(F) + P(\overline{E}|\overline{F})P(\overline{F}) \\
+			P(\overline{E}|\overline{F}) & = \frac{P(\overline{E}) - P(\overline{E}|F)P(F)}{P(\overline{F})} \\
+			1 - P(E|\overline{F}) & = \frac{P(\overline{E}) - P(\overline{E}|F)P(F)}{P(\overline{F})} \\
+			P(E|\overline{F}) & = 1 - \frac{P(\overline{E}) - P(\overline{E}|F)P(F)}{P(\overline{F})}
+		\end{split}
+	\end{equation*}
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 2.]
+	Questo punto ci chiede, invece, $P(\overline{F}|\overline{E})$, ovvero la probabilità che uno studente non abbia frequentato sapendo che non ha superato l'esame. Ancora una volta, ci viene in soccorso il Teorema di Bayes, che ci permette di invertire la condizione:
+	\[
+		P(\overline{F}|\overline{E}) = \frac{P(\overline{E}|\overline{F})P(\overline{E})}{P(\overline{F})}
+    \]
+	
+	Tutti questi dati sono già a nostra disposizione, per cui è semplicemente necessario sostituire i termini.
+\end{proof}
+
+\begin{theorem}
+	Il tempo di vita di un dato tipo di pile per la radio è una variabile aleatoria la cui densità è data da
+	\[
+		f(x) = \begin{cases} 0 & x \le 100 \\ \frac{100}{x^2} & x > 100 \end{cases}
+    \]
+	Qual è la probabilità che esattamente 2 pile della radio su 5 debbano essere sostituite entro le 150 ore di attività? Si supponga che gli eventi $E_i, i = 1, 2, 3, 4, 5$ = "l'$i$-esima pila andrà rimpiazzata entro questo tempo", siano indipendenti.
+\end{theorem}
+
+\begin{proof}
+	Possiamo sfruttare il fatto che gli eventi sono indipendenti per poter velocemente calcolare la probabilità congiunta. 
+	Abbiamo che, sostituendo nella funzione, la probabilità che \textbf{una} singola pila si scarichi dopo 150 ore è pari a
+
+	\begin{gather*}
+		P(E_i) = \int_0^{150} f(x) \,dx = \int_{100}^{150} \frac{100}{x^2} \,dx = \\
+		= 100 \left[ - \frac{1}{x} \right]^{150}_{100} = 1 - \frac{100}{150} = \frac{1}{3}
+	\end{gather*}
+
+	dove l'uso dell'integrale è giustificato dalla necessità di passare dalla p.d.f. alla C.d.f.
+
+	Allora possiamo calcolare la probabilità nel modo seguente, facendo attenzione a moltiplicare per il numero di combinazioni in cui si possono scegliere le batterie [\textit{n.d.r.} attenzione: non si tratta di permutazioni, anche se può sembrare a primo avviso! Non ci interessa l'ordine, solo sapere in che modo si possono scegliere 2 batterie da far guastare tra 5 disponibili]:
+
+	\[
+		\binom{5}{2} \cdot (\frac{1}{3})^2 (\frac{2}{3})^3 = \frac{80}{243}
+	\]
+\end{proof}
+
+\subsection{Recupero lezione 26/03/2020}
+
+\begin{theorem}
+	Un messaggio di posta elettronica viene spedito dal calcolatore A al calcolatore B. Il collegamento tra i due calcolatori è di questo tipo, ogni messaggio in partenza da A viene spedito a C e D, i quali spediscono il messaggio a B.
+	Ad ogni passaggio il messaggio può arrivare integro o non integro (il controllo viene fatto attraverso un codice), nel caso in cui il messaggio è integro viene re-inviato secondo lo schema descritto sopra, altrimenti il messaggio viene cancellato e perduto.
+	Le probabilità che da un passaggio ad un altro il messaggio arrivi integro è così descritto ($P(A \rightarrow C)$ indica la probabilità che il messaggio inviato da A giunga integro in C e così via):
+	
+	\begin{gather*}
+		P(A \rightarrow C) = 0.79, P(A \rightarrow D) = 0.92 \\
+		P(C \rightarrow B|A \rightarrow C) = 0.81, P(D \rightarrow B|A \rightarrow D) = 0.66 \\
+		P(C \rightarrow B|\overline{A \rightarrow C}) = 0, P(D \rightarrow B|\overline{A \rightarrow D}) = 0
+	\end{gather*}
+
+	Infine, tutti gli eventi che riguardano una linea di trasmissione ($A \rightarrow C \rightarrow B$) sono stocasticamente indipendenti da quelli dell’altra linea ($A \rightarrow D \rightarrow B$).
+	\begin{enumerate}
+		\item Qual è la probabilità che il messaggio venga recapitato SOLO attraverso il canale $A \rightarrow C \rightarrow B$?
+		\item Qual è la probabilità che il messaggio venga recapitato attraverso il canale $A \rightarrow C \rightarrow B$?
+		\item Qual è la probabilità che il messaggio venga recapitato?
+		\item Sapendo che il messaggio è stato ricevuto da B qual è la probabilità dell’evento $A \rightarrow D$?
+		\item Si definisca la v.a. X che conta il numero di canali funzionati. Calcolare \mean{x} e \varr{x}.
+	\end{enumerate}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1.]
+	Segue una rappresentazione schematica del percorso:
+
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{pgfonlayer}{nodelayer}
+				\node [style=new style 0] (0) at (0, 0) {A};
+				\node [style=new style 0] (1) at (6, 0) {B};
+				\node [style=new style 0] (3) at (3, -3) {D};
+				\node [style=new style 0] (4) at (3, 3) {C};
+			\end{pgfonlayer}
+			\begin{pgfonlayer}{edgelayer}
+				\draw [style=edge, bend left=45] (0) to (4);
+				\draw [style=edge, bend right=45] (0) to (3);
+				\draw [style=edge, bend right=45] (3) to (1);
+				\draw [style=edge, bend left=45] (4) to (1);
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
+
+	Affinché il pacchetto venga recapitato soltanto attraverso il percorso $A \rightarrow C \rightarrow B$, dobbiamo imporre che il pacchetto \textbf{non} passi dall'altro, contemporaneamente:
+
+	\[
+		P((A \rightarrow C \rightarrow B) \cap \overline{(A \rightarrow D \rightarrow B)}) = P(A \rightarrow C \rightarrow B)P(\overline{A \rightarrow D \rightarrow B})
+	\]
+
+	Grazie all'indipendenza dei due eventi, siamo in grado di trasformare l'intersezione degli eventi nella rispettiva moltiplicazione. Ora possiamo trasformare separatamente i due casi nelle relative probabilità condizionate, utilizzando il teorema di Bayes.
+
+	\begin{equation*}
+		\begin{split}
+			&P(A \rightarrow C \rightarrow B) P(\overline{A \rightarrow D \rightarrow B}) = \\
+			&P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) P(\overline{A \rightarrow D \rightarrow B})
+		\end{split}
+	\end{equation*}
+
+	Il primo caso è abbastanza semplice: è sufficiente utilizzare la formula inversa. Per il secondo caso, invece, dobbiamo dividere la formula: infatti,
+
+	\[
+		P(\overline{A \rightarrow D \rightarrow B}) = P(\overline{D \rightarrow B}|A \rightarrow D)P(A \rightarrow D) + P(\overline{D \rightarrow B}|\overline{A \rightarrow D})P(\overline{A \rightarrow D})
+	\]
+
+	in quanto dobbiamo tenere conto sia dell'eventualità che il pacchetto venga perso nel tratto $AD$, sia nel tratto $DB$. Questo porta a dover dividere la probabilità in due e a considerarle separatamente come somma.
+
+	Mettendo tutto insieme come somma:
+
+	\begin{gather*}
+		\left( P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) \right) \cdot \\ 
+		\left( P(\overline{D \rightarrow B}|A \rightarrow D)P(A \rightarrow D) + P(\overline{D \rightarrow B}|\overline{A \rightarrow D})P(\overline{A \rightarrow D}) \right) = \\
+		 = 0.251	
+	\end{gather*}
+\end{proof}
+
+\begin{proof}[Punto 2.]
+	Questo punto lo si ricava direttamente dal precedente: infatti, richiedere la probabilità che il messaggio venga recapitato (senza solo) dal primo canale è pari a $P((A \rightarrow C \rightarrow B)$, che possiamo velocemente espandere in $P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) = 0.6399$
+\end{proof}
+
+\begin{proof}[Punto 3.]
+	In questo caso, invece, ci viene richiesta la probabilità che il messaggio venga recapitato e basta. Allora si tratta di un unione di eventi:
+
+	\[
+		P((A \rightarrow C \rightarrow B) \cup \overline{(A \rightarrow D \rightarrow B)}) \ne P(A \rightarrow C \rightarrow B)P(\overline{A \rightarrow D \rightarrow B})
+	\]
+
+	Per risolvere un unione, non possiamo affidarci alle semplici moltiplicazioni stavolta, ma le nozioni insiemistiche ci soccorrono: infatti, vale $P(A \cup B) = P(A) + P(B) - P(A \cap B)$. Allora procediamo con la sostituzione:
+
+	\begin{equation*}
+		\begin{split}
+			P((A \rightarrow C \rightarrow B) \cup (A \rightarrow D \rightarrow B)) &= \\ 
+			P(A \rightarrow C \rightarrow B) + P(A \rightarrow D \rightarrow B) & - \\
+			P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) &= \\
+			P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) & + \\
+		 	(D \rightarrow B|A \rightarrow D)P(A \rightarrow D) & - \\
+		 	P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) & = \\
+			 0.81 \cdot 0.79 + 0.66 \cdot 0.92 - (0.81 \cdot 0.79) \cdot (0.66 \cdot 0.92) & = 0.859
+		\end{split}
+	\end{equation*}
+\end{proof}
+
+\begin{proof}[Punto 4.]
+	Questo punto presenta una richiesta abbastanza schietta: calcolare $P(A \rightarrow D|A \rightarrow B)$. Con il teorema di Bayes, la liquidiamo velocemente:
+
+	\[
+		P(A \rightarrow D|A \rightarrow B) = \frac{P((A \rightarrow D) \cap (A \rightarrow B))}{P(A \rightarrow B)} = \frac{P(A \rightarrow D \rightarrow B)}{P(A \rightarrow B)}
+	\]
+
+	dove l'ultimo passaggio è giustificato dal fatto che se dobbiamo cercare l'intersezione tra la probabilità che un messaggio venga consegnato e che passi per B, siamo necessariamente "costretti" a cercare la probabilità che sia passato per quel canale. I calcoli numerici seguono per sostituzione.
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 5.]
+	Verrà affrontato al prossimo tutorato.
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 15, Calcolo combinatorio.pdf]
+	8 persone vogliono sedersi per ordine su di una panchina.
+	\begin{enumerate}
+		\item In quanti modi possono farlo?
+		\item In quanti modi se le persone A e B vogliono sedersi vicine?
+		\item In quanti modi se vi sono 4 uomini e 4 donne e non vi sono persone dello stesso sesso sedute a fianco?
+		\item In quanti modi se vi sono 5 uomini tutti seduti vicini?
+		\item In quanti modi se vi sono 4 coppie sposate, e ciascuna coppia è seduta assieme?
+	\end{enumerate}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1.]
+	Tutti i seguenti punti essenzialmente richiedono una permutazione delle persone sedute: è importante l'ordine, e $n$ e $k$ coincidono. Allora, i modi totali sono $8!$.
+\end{proof}
+
+\begin{proof}[Punto 2.]
+	Se A e B vogliono stare vicini, è come se fossero considerati come un unità: in altre parole, è come se avessimo 6 persone staccate, e la settima un sacchetto che ne contiene due. Allora dobbiamo cercare le permutazioni di 7 oggetti, ma moltiplicare per 2: infatti, A e B possono disporsi sia come AB che come BA, mentre gli altri non cambiano. $2 \cdot 7!$
+\end{proof}
+
+\begin{proof}[Punto 3.]
+	Questo punto richiede che essenzialmente la panchina venga occupata in maniera alternata. La soluzione è data nella maniera seguente. Consideriamo il caso in cui il primo posto sia occupato da un maschio. Allora il secondo sarà occupato da una femmina, e così via. Fissato questo posizionamento, possiamo permutare i possibili maschi in $4!$ modi, e le femmine in $4!$, nei loro rispettivi posti. Infine, contiamo il caso in cui invece il primo posto è occupato da una femmina. Dobbiamo quindi moltiplicare tutto per 2. Allora otteniamo $4! \cdot 4! \cdot 2$
+\end{proof}
+
+\begin{proof}[Punto 4.]
+	Se vi sono 5 uomini che si siedono tutti vicini, prima di tutto calcoliamo i modi in cui possiamo permutarli: $5!$. Moltiplichiamo poi i modi in cui le restanti tre persone possono sedersi: $3!$. Infine, dobbiamo moltiplicare per i 4 modi possibili in cui i 5 maschi possono sedersi. Infatti, la "catena" di maschi può partire dal primo, secondo, terzo, o quarto posto (non oltre). Abbiamo quindi $5! \cdot 3! \cdot 4 = 5! \cdot 4!$
+\end{proof}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 5.]
+	Come citato prima, avere due persone che si siedono a fianco è come considerarli come un unica entità. Allora, possiamo calcolare le permutazioni di 4 possibili coppie: $4!$. Moltiplichiamo poi per tutti i modi possibili in cui le 4 coppie possono permutarsi: 2 per ciascuna. In sostanza: $4! \cdot 2 \cdot 2 \cdot 2 \cdot 2 = 4! \cdot 2^4$
+\end{proof}
+
+\begin{theorem}[ex. Esercizio 18, Calcolo combinatorio.pdf]
+	Da un gruppo di 8 donne e 6 uomini deve essere scelta una commissione formata da 3 donne e 3 uomini.
+	\begin{enumerate}
+		\item Quante diverse commissioni si possono formare?
+		\item E se 2 degli uomini rifiutano di lavorare insieme?
+		\item E se 2 delle donne rifiutano di lavorare insieme?
+		\item E se 1 uomo e 1 donna rifiutano di lavorare insieme?
+	\end{enumerate}
+\end{theorem}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{proof}[Punto 1.]
+	Per risolvere questo punto, visto che non è richiesto l'ordine, possiamo  avvalerci delle combinazioni semplici. Dobbiamo prendere per forza 3 uomini e 3 donne, quindi:
+	\[
+		\binom{8}{3} \cdot \binom{6}{3}
+    \]
+\end{proof}
+
+\begin{proof}[Punto 2.]
+	In questo caso, le combinazioni di donne rimangono uguali ($\binom{8}{3}$), mentre dobbiamo considerare i casi in cui selezioniamo tre uomini dai 4 che non hanno problemi a lavorare insieme ($\binom{4}{3}$), e quello in cui invece scegliamo ne uno, mentre l'altro rimane fuori: abbiamo $\binom{4}{2}$, ovvero i due che scegliamo da quelli che non si fanno problemi, moltiplicato per 2 (i due modi in cui si possono scegliere gli uomini problematici). Sommando:
+	\[
+		\binom{8}{3} \cdot \left( \binom{4}{3} + 2 \cdot \binom{4}{2} \right)
+    \]
+\end{proof}
+
+\begin{proof}[Punto 3.]
+	Questo punto è letteralmente uguale al precedente, soltanto che stavolta il problema riguarda due donne anziché due uomini. Come prima:
+	\[
+		\binom{6}{3} \cdot \left( \binom{6}{3} + 2 \cdot \binom{6}{2} \right)
+    \]
+\end{proof}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{proof}[Punto 4.]
+	Infine, questo punto possiamo come al solito visualizzarlo come una somma di eventi incompatibili. Una donna e un uomo che si rifiutano di lavorare portano alle seguenti scelte obbligate:
+	
+	\begin{itemize}
+		\item Escluderli entrambi: $\binom{7}{3} \cdot \binom{5}{3}$
+		\item Escludere la donna problematica, ma non l'uomo: $\binom{7}{2} \cdot \binom{5}{3}$
+		\item Escludere l'uomo problematico, ma non la donna: $\binom{7}{3} \cdot \binom{5}{2}$
+	\end{itemize}
+	
+	Il risultato finale è dato dalla somma di questi tre termini:
+	\[
+		\binom{7}{3} \cdot \binom{5}{3} + \binom{7}{2} \cdot \binom{5}{3} + \binom{7}{3} \cdot \binom{5}{2}
+    \]
 \end{proof}
 
 \end{document}
