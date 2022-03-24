@@ -1,0 +1,289 @@
+% !TEX root = .
+
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{mathcomp}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{setspace}
+\usepackage{tikz}
+
+% Global packagesl
+\usepackage{tikzit}
+\input{style.tikzstyles}
+
+\include{theme.tex}
+\include{lst.tex}
+
+% transparent bg
+\setbeamercovered{transparent}
+\setbeameroption{show notes}
+
+
+\newcounter{numeroes}[section]
+\newcounter{requestcounter}
+
+\DeclareUnicodeCharacter{2212}{\textminus}
+
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+
+%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
+\newtheorem{exercise}{Esercizio}
+\renewcommand*{\proofname}{Soluzione}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
+\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
+%\renewcommand\qedsymbol{$\square$}
+
+
+% tikz round photos
+\newcommand{\roundpic}[4][]{
+	\tikz\node [circle, minimum width = #2,
+		path picture = {
+				\node [#1] at (path picture bounding box.center) {
+					\includegraphics[width=#3]{#4}};
+			}] {};}
+
+% Header slide
+\title[Tutorato Probabilità]
+{Tutorato di\\Calcolo delle Probabilità}
+
+\subtitle{Informazioni tecniche}
+
+\author[DISI]{%
+	\texorpdfstring{%
+		\begin{columns}
+			\column{.50\linewidth}
+			\centering
+			Camilla Righetti
+			\column{.50\linewidth}
+			\centering
+			Matteo Franzil
+		\end{columns}
+	}{DISI}
+}
+
+\institute[UniTN]{
+	\texorpdfstring{%
+		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
+	}{University of Trento}\\
+	\smallskip
+	%\hphantom{...}\\
+	Corso di Laurea in Ingegneria Informatica, delle Comunicazioni ed Elettronica
+}
+
+\date[23/03/2022]{23 marzo 2022}
+
+% Indice tra sezioni
+%\AtBeginSection[]
+%{
+%	\begin{frame}
+%		\frametitle{Indice}
+%		\tableofcontents[currentsection]
+%	\end{frame}
+%}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introduzione}
+
+\begin{frame}[fragile]
+	\frametitle{Informazioni tecniche}
+	
+	Quando?
+	
+	\begin{itemize}
+	    \item ogni mercoledì, 15:30 $\Rightarrow$ 17:30
+	\end{itemize}
+	
+	\medskip
+	
+	Dove?
+	
+	\begin{itemize}
+	    \item aula A207 \\ (salvo eccezioni che vi saranno comunicate)
+	\end{itemize}
+	
+	\medskip
+	
+	Chi?
+	
+	\begin{itemize}
+	    \item Camilla Righetti \\ \verb=camilla.righetti-1@studenti.unitn.it=
+	        
+	    \item Matteo Franzil \\ \verb=matteo.franzil@studenti.unitn.it=
+	\end{itemize}
+	
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle{Informazioni tecniche}
+	
+	Va bene tutto, ma cosa si fa?
+	
+	\begin{itemize}
+	    \item supporto alla preparazione delle provette/esami
+	    \item risoluzione di problemi proposti: \begin{itemize}
+	        \item da voi, se avete dubbi
+	        \item da noi, come approfondimento
+	    \end{itemize}
+	\end{itemize}
+	
+	\medskip
+	
+	Cosa NON si fa:
+	
+	\begin{itemize}
+	    \item supporto alla parte teorica\\{ \small (scrivete alla prof. Boato, vi saprà rispondere meglio di noi) }
+	    \item miracoli\\{ \small (non saremmo qui a fare tutorato altrimenti) }
+	\end{itemize}
+    
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle{Informazioni tecniche}
+	
+	Al seguente link trovate un form Google che vi permette (anonimamente!) di inviare:
+	
+	\begin{itemize}
+	    \item problemi agli esercizi che avete incontrato
+	    \item suggerimenti di esercizi per l'incontro successivo
+	\end{itemize}
+	
+	\begin{figure}
+	    \centering
+	    \includegraphics[width=0.3\textwidth]{drawable/logos/qr.png}
+	\end{figure}
+    
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle{Prima provetta}
+	
+	Da qui alla prima provetta avremo i seguenti incontri:
+	
+	\begin{itemize}
+	    \item oggi
+	    \item 30 marzo (aula A207)
+	    \item 6 aprile (\textbf{aula A205})
+	    \item 13 aprile (aula A207)
+	\end{itemize}
+	
+	\medskip
+	
+	Se dovesse servire, non esiteremo a fissarne di ulteriori.
+	
+    
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle{Your turn!}
+	
+	\begin{itemize}
+	    \item Come procede finora il corso?
+	    \item Avete dubbi su qualche argomento in particolare?
+	    \item Su cosa preferireste ci concentrassimo?
+	\end{itemize}
+    
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 1.1}
+	
+	\begin{exercise}[1.1, ex. Esercizio 11\\PDF "Esercizi con soluzioni" su Moodle]
+	12 gettoni numerati vengono consegnati casualmente, uno alla volta, ad altrettante persone. Meravigliando tutti sono assegnati secondo l'ordine crescente dei numeri che li distingue. Quale è la probabilità di un simile evento?
+    \end{exercise}
+\end{frame}
+
+\begin{frame}
+
+    \begin{proof}
+	La probabilità che la permutazione dei gettoni $[1, 2...12]$ avvenga è esattamente la stessa di una qualunque altra permutazione di gettoni.
+	
+	In altre parole, la probabilità è pari a $\frac{1}{12!}$, dove $12!$ corrisponde a tutte le permutazioni possibili dei gettoni.
+	
+	\medskip
+	
+	E' possibile vedere questa soluzione in un altro modo: quando assegno il gettone alla prima persona, ho $P = \frac{1}{12}$ di assegnarle il gettone numerato $1$. Alla seconda persona, ora ho $P =\frac{1}{11}$ di assegnarle il gettone $2$. E così via, ottenendo quindi che la probabilità finale sarà pari a
+	
+	\[
+        \frac{1}{12} \cdot \frac{1}{11} \cdot \frac{1}{10} \cdot \cdots \cdot 1 = \frac{1}{12!}
+    \]
+    
+    \qedhere
+\end{proof}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 1.2}
+	
+	\begin{exercise}[1.2, ex. Esercizio 20, stesso PDF]
+	Supponiamo di dover selezionare a caso 5 persone da un gruppo di 20 individui formato da 10 coppie sposate e che si sia interessati a calcolare la probabilità che i cinque individui selezionati non siano in relazione tra loro, ovvero che non ce ne siano due tra loro sposati?
+    \end{exercise}
+\end{frame}
+
+\begin{frame}
+
+    \begin{proof}\renewcommand{\qedsymbol}{$\longrightarrow$}
+	Calcoliamo tutte le possibili combinazioni di 5 persone scelte da un gruppo di 20 individui: $\binom{20}{5} = 15504$.
+	
+	\medskip
+	
+	Calcoliamo ora le combinazioni a noi favorevoli. La prima persona la possiamo scegliere in 20 modi diversi. Una volta scelta la prima persona, siamo necessariamente vincolati a non scegliere il ``coniuge''.
+	
+	\medskip
+	
+	Ci rimangono quindi 18 persone da scegliere per la persona successiva, 16 per quella dopo, e così via. Otteniamo quindi $20 \cdot 18 \cdot 16 \cdot 14 \cdot 12$. Tuttavia, dobbiamo necessariamente dividere questo numero per tutte le permutazioni possibili di 5 persone, ovvero 5!.
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+
+    \begin{proof}
+	
+	In formula:
+	
+	\[
+		\frac{\frac{20 \cdot 18 \cdot 16 \cdot 14 \cdot 12}{5!}}{\binom{20}{5}} =  \frac{8064}{15504} = \frac{168}{323}
+	\]
+	
+	\medskip
+	P.S.: vi sono svariati modi di risolvere questo esercizio: usando le disposizioni, le combinazioni, oppure con l'approccio classico $ \frac{\text{casi favor.}}{\text{casi totali}}$ (come qua sopra).
+	
+	In generale, molti esercizi ammettono più ragionamenti che vanno benissimo. L'importante è capire perché si è fatta una scelta piuttosto che un'altra. Spesso, ripeterlo a parole aiuta tantissimo.
+\end{proof}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Un piccolo recap...}
+    
+    \begin{tabular}{|ccc|}
+    \hline
+    Operazione & Con ripetizione & Senza ripetizione \\ \hline
+    \makecell{Disposizioni di\\$n$ elementi\\in $k$ posizioni} & $D_{n,k} = \frac{n!}{(n-k)!}$ & $D^r_{n,k} = n^k$ \\ 
+    Permutazioni di $n$ elementi &  $P_n = n!$ & $P^r_{n,k} = n^n$ \\
+    \makecell{Combinazioni di n elementi\\presi k alla volta} & $C_{n,k} = \binom{n}{k} = \frac{n!}{k!(n-k)!}$ & $C^r_{n,k} = \frac{(n+k-1)!}{k!(n-1)!}$ \\ \hline
+    \end{tabular}
+
+    
+\end{frame}
+
+%\frame{\titlepage}
+
+\end{document}
