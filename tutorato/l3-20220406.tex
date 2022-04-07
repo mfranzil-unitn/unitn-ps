@@ -1,0 +1,366 @@
+% !TEX root = .
+
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{mathcomp}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{soul}
+
+% Global packagesl
+\usepackage{tikzit}
+\input{style.tikzstyles}
+
+\include{theme.tex}
+\include{lst.tex}
+
+% transparent bg
+\setbeamercovered{transparent}
+\setbeameroption{show notes}
+
+
+\newcounter{numeroes}[section]
+\newcounter{requestcounter}
+
+\DeclareUnicodeCharacter{2212}{\textminus}
+
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+
+%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
+\newtheorem{exercise}{Esercizio}
+\renewcommand*{\proofname}{Soluzione}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
+\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
+%\renewcommand\qedsymbol{$\square$}
+
+
+% tikz round photos
+\newcommand{\roundpic}[4][]{
+	\tikz\node [circle, minimum width = #2,
+		path picture = {
+				\node [#1] at (path picture bounding box.center) {
+					\includegraphics[width=#3]{#4}};
+			}] {};}
+
+% Header slide
+\title[Tutorato Probabilità]
+{Tutorato di\\Calcolo delle Probabilità}
+
+\author[DISI]{%
+	\texorpdfstring{%
+		\begin{columns}
+			\column{.50\linewidth}
+			\centering
+			Camilla Righetti
+			\column{.50\linewidth}
+			\centering
+			Matteo Franzil
+		\end{columns}
+	}{DISI}
+}
+
+\institute[UniTN]{
+	\texorpdfstring{%
+		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
+	}{University of Trento}\\
+	\smallskip
+	%\hphantom{...}\\
+	Corso di Laurea in Ingegneria Informatica, delle Comunicazioni ed Elettronica
+}
+
+\date[06/04/2022]{6 aprile 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introduzione}
+
+\begin{frame}
+	\frametitle{Siamo in A205...}
+
+	...solo oggi.
+
+	\medskip
+
+	La prossima volta in A207.
+
+	\medskip
+
+	Non è colpa nostra se l'orario non lo aggiornano.
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Un piccolo recap...}
+
+	\begin{center}
+		\begin{tabular}{|ccc|}
+			\hline
+			Operazione                   & Con ripetizione & Senza ripetizione \\ \hline
+			\makecell{Disposizioni di                                          \\$n$ elementi\\in $k$ posizioni} & $D_{n,k} = \frac{n!}{(n-k)!}$ & $D^r_{n,k} = n^k$ \\
+			Permutazioni di $n$ elementi & $P_n = n!$      & $P^r_{n,k} = n^n$ \\
+			\makecell{Combinazioni di n elementi                               \\presi k alla volta} & $C_{n,k} = \binom{n}{k} = \frac{n!}{k!(n-k)!}$ & $C^r_{n,k} = \frac{(n+k-1)!}{k!(n-1)!}$ \\ \hline
+		\end{tabular}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{...anche in altre parole}
+
+	\begin{center}
+
+		\begin{tabular}{|ccc|}
+			\hline
+			               & modalità                           & di estrazione \\ \hline
+			configurazione & senza rimessa                      & con rimessa   \\ \hline
+			ordinata       & $D_{n, k}$ = $\frac{P_n}{(n-k)!}$  & $D^r_{n, k}$  \\
+			non ordinata   & $C_{n, k}$ = $\frac{D_{n, k}}{k!}$ & $C^r_{n_k}$   \\ \hline
+		\end{tabular}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3.1}
+
+	\begin{exercise}[3.1, ex. Esercizio 12\\PDF "Esercizi" su Moodle]
+		Quattro ragazzi e quattro ragazze partecipano ad una caccia al tesoro a coppie.
+		\begin{enumerate}
+			\item Se ciascuna coppia è formata da un ragazzo e da una ragazza in quanti modi diversi si può formare la quaterna di coppie?
+			\item Se ciascuna coppia è formata da persone dello stesso sesso, in quanti modi diversi si può formare la quaterna di coppie?
+			\item In quanti modi diversi si può formare la quaterna di coppie (insieme di due elementi)?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}[Risoluzione]
+		\begin{enumerate}
+			\item $\frac{(4 \cdot 4) \cdot (3 \cdot 3) \cdot (2 \cdot 2) \cdot (1 \cdot 1)}{4!} = \frac{16 \cdot 9 \cdot 4 \cdot 1}{24} = 4!$. Per la prima coppia, possiamo scegliere 4 ragazzi e 4 ragazze. Per la seconda, 3 e 3, e così via. Dividiamo tutto per 4!, ovvero le permutazioni possibili -- in quanto non ci interessa l'ordine e una disposizione $A_1A_2, B_1B_2, \cdots$ è sempre uguale a $B_1B_2,  A_1A_2, \cdots$.
+			\item $ (\binom{4}{2} \cdot \frac{1}{2!}) \cdot (\binom{4}{2} \cdot \frac{1}{2!})$. Per i maschi, scegliamo dai 4 disponibili 2 persone (l'altra coppia è di conseguenza vincolata). Dobbiamo contare il caso in cui le coppie sono scambiate. Stessa cosa per le femmine.
+			\item Stavolta non abbiamo vincoli legati al genere dei partecipanti delle coppie, quindi possiamo trattare il problema come una permutazione con ripetizione, ovvero: $\frac{8!}{2!2!2!2!} \cdot \frac{1}{4!}$. In altre parole, abbiamo le permutazioni di tutti gli 8 partecipanti, divise per le permutazioni delle singole coppie (in quanto $AB = BA$ per una coppia), diviso infine per le permutazioni di tutte le coppie (in quanto $1234$ e $1423$ sono equivalenti). \qedhere
+		\end{enumerate}
+		\qedhere
+	\end{proof}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3.2}
+	\begin{exercise}[3.2, esame 28/06/2016 degli Informatici]
+		Un messaggio di posta elettronica viene spedito dal calcolatore A al calcolatore B. Il collegamento tra i due calcolatori è di questo tipo, ogni messaggio in partenza da A viene spedito a C e D, i quali spediscono il messaggio a B.
+
+		Ad ogni passaggio il messaggio può arrivare integro o non integro (il controllo viene fatto attraverso un codice), nel caso in cui il messaggio è integro viene re-inviato secondo lo schema descritto sopra, altrimenti il messaggio viene cancellato e perduto.
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3.2}
+	\begin{exercise}[3.2, esame 28/06/2016 degli Informatici]
+		Le probabilità che da un passaggio ad un altro il messaggio arrivi integro è così descritto ($P(A \rightarrow C)$ indica la probabilità che il messaggio inviato da A giunga integro in C e così via):
+
+		\begin{gather*}
+			P(A \rightarrow C) = 0.79, P(A \rightarrow D) = 0.92 \\
+			P(C \rightarrow B|A \rightarrow C) = 0.81, P(D \rightarrow B|A \rightarrow D) = 0.66 \\
+			P(C \rightarrow B|\overline{A \rightarrow C}) = 0, P(D \rightarrow B|\overline{A \rightarrow D}) = 0
+		\end{gather*}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3.2}
+	\begin{exercise}[3.2, esame 28/06/2016 degli Informatici]
+		Infine, tutti gli eventi che riguardano una linea di trasmissione ($A \rightarrow C \rightarrow B$) sono stocasticamente indipendenti da quelli dell'altra linea ($A \rightarrow D \rightarrow B$).
+		\begin{enumerate}
+			\item Qual è la probabilità che il messaggio venga recapitato SOLO attraverso il canale $A \rightarrow C \rightarrow B$?
+			\item Qual è la probabilità che il messaggio venga recapitato attraverso il canale $A \rightarrow C \rightarrow B$?
+			\item Qual è la probabilità che il messaggio venga recapitato?
+			\item Sapendo che il messaggio è stato ricevuto da B qual è la probabilità dell'evento $A \rightarrow D$?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\renewcommand\qedsymbol{$\square$}
+
+\begin{frame}
+	\begin{proof}[Punto 1.]\renewcommand{\qedsymbol}{$\longrightarrow$}
+		\begin{center}
+			\begin{tikzpicture}
+				\begin{pgfonlayer}{nodelayer}
+					\node [style=new style 0] (0) at (0, 0) {A};
+					\node [style=new style 0] (1) at (6, 0) {B};
+					\node [style=new style 0] (3) at (3, -3) {D};
+					\node [style=new style 0] (4) at (3, 3) {C};
+				\end{pgfonlayer}
+				\begin{pgfonlayer}{edgelayer}
+					\draw [style=edge, bend left=45] (0) to (4);
+					\draw [style=edge, bend right=45] (0) to (3);
+					\draw [style=edge, bend right=45] (3) to (1);
+					\draw [style=edge, bend left=45] (4) to (1);
+				\end{pgfonlayer}
+			\end{tikzpicture}
+		\end{center} \qedhere
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+	\begin{proof}[Punto 1.]\renewcommand{\qedsymbol}{$\longrightarrow$}
+		Affinché il pacchetto venga recapitato soltanto attraverso il percorso $A \rightarrow C \rightarrow B$, dobbiamo imporre che il pacchetto \textbf{non} passi dall'altro, contemporaneamente:
+
+		\[
+			P((A \rightarrow C \rightarrow B) \cap \overline{(A \rightarrow D \rightarrow B)}) = P(A \rightarrow C \rightarrow B)P(\overline{A \rightarrow D \rightarrow B})
+		\]
+
+		Grazie all'indipendenza dei due eventi, siamo in grado di trasformare l'intersezione degli eventi nella rispettiva moltiplicazione. Ora possiamo trasformare separatamente i due casi nelle relative probabilità condizionate, utilizzando il teorema di Bayes.
+
+		\begin{equation*}
+			\begin{split}
+				&P(A \rightarrow C \rightarrow B) \cdot P(\overline{A \rightarrow D \rightarrow B}) = \\
+				&(P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C)) \cdot P(\overline{A \rightarrow D \rightarrow B})
+			\end{split}
+		\end{equation*}
+		\qedhere
+	\end{proof}
+\end{frame}
+\begin{frame}
+	\begin{proof}[Punto 1.]
+
+		Il primo caso è abbastanza semplice: è sufficiente utilizzare la formula inversa. Per il secondo caso, invece, dobbiamo dividere la formula: infatti,
+
+		\[
+			P(\overline{A \rightarrow D \rightarrow B}) =
+		\]
+		\[
+			P(\overline{D \rightarrow B}|A \rightarrow D)P(A \rightarrow D) + P(\overline{D \rightarrow B}|\overline{A \rightarrow D})P(\overline{A \rightarrow D})
+		\]
+
+		in quanto dobbiamo tenere conto sia dell'eventualità che il pacchetto venga perso nel tratto $AD$, sia nel tratto $DB$. Questo porta a dover dividere la probabilità in due e a considerarle separatamente come somma.
+
+		\begin{gather*}
+			\left( P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) \right) \cdot \\
+			\left( P(\overline{D \rightarrow B}|A \rightarrow D)P(A \rightarrow D) + P(\overline{D \rightarrow B}|\overline{A \rightarrow D})P(\overline{A \rightarrow D}) \right) = \\
+			= 0.251
+		\end{gather*} \qedhere
+	\end{proof}
+\end{frame}
+
+
+\begin{frame}
+	\begin{proof}[Punto 2.]
+		Questo punto lo si ricava direttamente dal precedente: infatti, richiedere la probabilità che il messaggio venga recapitato (senza solo) dal primo canale è pari a $P(A \rightarrow C \rightarrow B)$, che possiamo velocemente espandere in $P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) = 0.6399$ \qedhere
+	\end{proof}
+\end{frame}
+
+
+\begin{frame}
+	\begin{proof}[Punto 3.]\renewcommand{\qedsymbol}{$\longrightarrow$}
+		In questo caso, invece, ci viene richiesta la probabilità che il messaggio venga recapitato e basta. Allora si tratta di un unione di eventi.
+
+		Tuttavia, per risolvere un unione, non possiamo affidarci alle semplici moltiplicazioni:
+
+		\[
+			P((A \rightarrow C \rightarrow B) \cup \overline{(A \rightarrow D \rightarrow B)}) \ne P(A \rightarrow C \rightarrow B)P(\overline{A \rightarrow D \rightarrow B})
+		\] \qedhere
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+	\begin{proof}[Punto 3.]
+		Fortunatamente, le nozioni insiemistiche ci soccorrono: infatti, vale $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+
+		Allora procediamo con la sostituzione:
+
+		\only<2>{
+			\renewcommand{\qedsymbol}{$\longrightarrow$}
+			\begin{equation*}
+				\begin{split}
+					P((A \rightarrow C \rightarrow B) \cup (A \rightarrow D \rightarrow B)) & = \qquad\text{\footnotesize (a)}
+				\end{split}
+			\end{equation*}
+		}
+
+		\only<3>{
+			\renewcommand{\qedsymbol}{$\longrightarrow$}
+			\begin{equation*}
+				\begin{split}
+					P(A \rightarrow C \rightarrow B) & + \\
+					P(A \rightarrow D \rightarrow B) & - \\
+					P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) & = \qquad\text{\footnotesize (b)}
+				\end{split}
+			\end{equation*}
+		}
+
+		\only<4>{
+			\renewcommand{\qedsymbol}{$\longrightarrow$}
+			\begin{equation*}
+				\begin{split}
+					P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) & + \\
+					(D \rightarrow B|A \rightarrow D)P(A \rightarrow D) & - \\
+					P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) & =  \qquad\text{\footnotesize (c)}
+				\end{split}
+			\end{equation*}
+		}
+
+		\only<5>{
+			\renewcommand{\qedsymbol}{$\longrightarrow$}
+			\begin{equation*}
+				\begin{split}
+					\underbrace{0.81 \cdot 0.79}_{P(A \rightarrow C \rightarrow B)} +
+					\underbrace{0.66 \cdot 0.92}_{P(A \rightarrow D \rightarrow B)} -
+					\underbrace{(0.81 \cdot 0.79) \cdot (0.66 \cdot 0.92)}_{P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) } & = 0.859
+				\end{split}
+			\end{equation*}
+		}
+
+		\only<6>{
+			% Equazione completa
+			\begin{equation*}
+				\begin{split}
+					P((A \rightarrow C \rightarrow B) \cup (A \rightarrow D \rightarrow B)) & = \qquad\text{\footnotesize (a)} \\
+					P(A \rightarrow C \rightarrow B) & + \\
+					P(A \rightarrow D \rightarrow B) & - \\
+					P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) & = \qquad\text{\footnotesize (b)}  \\
+					P(C \rightarrow B|A \rightarrow C)P(A \rightarrow C) & + \\
+					(D \rightarrow B|A \rightarrow D)P(A \rightarrow D) & - \\
+					P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) & = \qquad\text{\footnotesize (c)} \\
+					\underbrace{0.81 \cdot 0.79}_{P(A \rightarrow C \rightarrow B)} +
+					\underbrace{0.66 \cdot 0.92}_{P(A \rightarrow D \rightarrow B)} -
+					\underbrace{(0.81 \cdot 0.79) \cdot (0.66 \cdot 0.92)}_{P((A \rightarrow C \rightarrow B) \cap (A \rightarrow D \rightarrow B)) } & = 0.859 \qedhere
+				\end{split}
+			\end{equation*}
+		}
+	\end{proof}
+\end{frame}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+
+\begin{frame}
+	\begin{proof}[Punto 4.]
+		Questo punto presenta una richiesta abbastanza schietta: calcolare $P(A \rightarrow D|A \rightarrow B)$. Con il teorema di Bayes, la liquidiamo velocemente:
+
+		\[
+			P(A \rightarrow D|A \rightarrow B) = \frac{P((A \rightarrow D) \cap (A \rightarrow B))}{P(A \rightarrow B)} = \frac{P(A \rightarrow D \rightarrow B)}{P(A \rightarrow B)}
+		\]
+
+		dove l'ultimo passaggio è giustificato dal fatto che se dobbiamo cercare l'intersezione tra la probabilità che un messaggio venga consegnato e che passi per B, siamo necessariamente "costretti" a cercare la probabilità che sia passato per quel canale. I calcoli numerici seguono per sostituzione. \qedhere
+	\end{proof}
+\end{frame}
+
+\end{document}
