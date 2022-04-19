@@ -1,0 +1,292 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{moodle}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{mathcomp}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{soul}
+\usepackage[shortlabels]{enumitem}
+
+% Global packagesl
+\usepackage{tikzit}
+\input{style.tikzstyles}
+
+\input{theme.tex}
+\input{lst.tex}
+
+% transparent bg
+\setbeamercovered{transparent}
+\setbeameroption{show notes}
+
+
+\newcounter{numeroes}[section]
+\newcounter{requestcounter}
+
+\DeclareUnicodeCharacter{2212}{\textminus}
+
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+
+%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
+\newtheorem{exercise}{Esercizio}
+\renewcommand*{\proofname}{Soluzione}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
+\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
+%\renewcommand\qedsymbol{$\square$}
+
+\setlength{\jot}{10pt}
+
+% tikz round photos
+\newcommand{\roundpic}[4][]{
+	\tikz\node [circle, minimum width = #2,
+		path picture = {
+				\node [#1] at (path picture bounding box.center) {
+					\includegraphics[width=#3]{#4}};
+			}] {};}
+
+% Header slide
+\title[Tutorato Probabilità]
+{Tutorato di\\Calcolo delle Probabilità}
+
+\author[DISI]{%
+	\texorpdfstring{%
+		\begin{columns}
+			\column{.50\linewidth}
+			\centering
+			Camilla Righetti
+			\column{.50\linewidth}
+			\centering
+			Matteo Franzil
+		\end{columns}
+	}{DISI}
+}
+
+\institute[UniTN]{
+	\texorpdfstring{%
+		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
+	}{University of Trento}\\
+	\smallskip
+	%\hphantom{...}\\
+	Corso di Laurea in Ingegneria Informatica, delle Comunicazioni ed Elettronica
+}
+
+\date[06/04/2022]{20 aprile 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Correzioni provetta 15/04/2022}
+
+% Punteggio assegnato a ciascun esercizio
+\def\pointsQa{6}
+\def\pointsQb{6}
+\def\pointsQc{8}
+\def\pointsQd{8}
+\def\pointsQe{5}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 1}
+
+	\begin{exercise}[\textit{Password cdp} -- \pointsQa pt]
+		Il sito dedicato al calcolo delle probabilit\`a ``\texttt{cdp.com}'' richiede ai suoi utenti di registrarsi con una password. Le regole per la costruzione della password sono le seguenti:
+
+		\begin{itemize}[-]
+			\item deve essere lunga esattamente 5 caratteri;
+			\item lettere maiuscole e minuscole sono considerate distinte (la password è case-sensitive);
+			\item deve contenere almeno una lettera (non importa se maiuscola o minuscola) e almeno un simbolo (punto . oppure underscore \_);
+			\item le lettere possibili sono quelle dell'alfabeto inglese (26 lettere);
+			\item sono consentiti solamente lettere maiuscole o minuscole, il punto (.) e l'underscore (\_).
+		\end{itemize}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 1}
+
+	\begin{exercise}[\textit{Password cdp} -- \pointsQa pt]
+
+		\begin{enumerate}[(a)]
+			\item Quante sono le password possibili?
+			\item Quante delle password precedenti contengono la stringa ``\texttt{cdp}'' al loro interno? La stringa si intende scritta con caratteri maiuscoli e/o minuscoli a piacere, sono opzioni distinte sia ``\texttt{CdP}'' che ``\texttt{cDP}''.
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
+		a) Se le 26 lettere maiuscole sono considerate distinte dalle 26 minuscole, e aggiungendo 2 simboli grafici, ottengo un totale di $26+26+2=54$ simboli. Senza regole, posso scegliere $54^5$ password possibili; da queste vanno escluse le $52^5$ consistenti solamente di lettere (senza simboli) e le $2^5$ consistenti solo di simboli (senza lettere), arrivando così a
+		$$
+			n= 54^5 - 52^5- 2^5 = 78 960 960
+		$$
+		\qedhere
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}%\renewcommand{\qedsymbol}{$\longrightarrow$}
+		b) Ci sono due modi per scrivere ciascuna lettera della stringa ``\texttt{cdp}'' (lettera maiuscola oppure minuscola), per un totale di $2^3=8$ modi diversi.
+
+		\medskip
+
+		La stringa pu\`o essere posizionata all'inizio della password, nel mezzo o alla fine (\texttt{cdp**}, \texttt{*cdp*} oppure \texttt{**cdp}), per un totale di 3 posizionamenti possibili.
+
+		\medskip
+
+		I rimanenti due caratteri possono essere due simboli grafici ($2^2$ possibilit\`a) oppure una lettera e un simbolo (le due lettere sono escluse, perch\'e deve essere presente almeno un simbolo, per un totale di $52\cdot2\cdot2$ modi). In totale, le password di questo tipo sono
+
+		\begin{align*}
+			m = 8 \cdot 3 \cdot \underbrace{2 \cdot 2}_{\text{simboli grafici}} + \: 8 \cdot 3 \cdot \underbrace{52 \cdot 2 \cdot 2}_{\text{lettera e simbolo}} = 5088
+		\end{align*}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 2}
+
+	\begin{exercise}[\textit{Tombola ridotta} -- \pointsQb pt]
+
+		Viene organizzata una tombola ``ristretta''. Vi sono 20 palline numerate (da 1 a 20) in un vaso, e ne vengono pescate (senza reinserimento) 5, una alla volta. Su ognuna delle tessere distribuite ai giocatori sono presenti 8 numeri (da 1 a 20). Due estrazioni si considerano differenti se differiscono per almeno un numero o per l'ordine di uscita dei numeri.
+
+		\begin{enumerate}[(a)]
+			\item In quanti modi diversi pu\`o avvenire l'estrazione?
+			\item Sulla tessera di un giocatore sono presenti i numeri 2, 3, 5, 7, 11, 13, 17, 19. Se la prima pallina estratta è stata quella con il numero 6, per quante estrazioni differenti questa scheda realizza almeno un terno (ovvero almeno 3 dei suoi numeri vengono estratti)?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}%\renewcommand{\qedsymbol}{$\longrightarrow$}
+
+		\begin{enumerate}[(a)]
+			\item L'estrazione pu\`o avvenire in $D_{20,5}=\frac{20!}{15!}=1860480$ modi diversi.
+			\item Visto che uno dei 5 numeri che vengono estratti non è presente sulla scheda, è possibile solo fare terno o quaterna. La quaterna può essere estratta in $$D_{8,4}=\frac{8!}{4!}=1680$$ modi. Per la terna, 3 dei numeri estratti devono essere tra gli 8 presenti sulla scheda, e l'ultimo può essere uno degli altri $20-8-1=11$ numeri. L'ultimo numero può essere estratto come secondo, terzo, quarto o quinto, per un totale di $$4\cdot11\cdot D_{8,3}=4\cdot11\cdot\frac{8!}{5!}=14784$$ modi. Sommando le due possibilità si ottiene il totale di $n=1680+14784=16464$. \qedhere
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3}
+
+	\begin{exercise}[\textit{Calcio scommesse} -- \pointsQc pt]
+
+		Un tifoso vuole scommettere sulla vittoria della propria squadra nella prossima partita di calcio. Sa che la sua squadra vince nel 70\% dei casi e pareggia nel 20\% dei casi con la squadra che la affronterà se il tempo è asciutto, mentre vince nel 30\% dei casi e pareggia nel 25\% se piove.
+
+		\begin{enumerate}[(a)]
+			\item Se le previsioni per il giorno della partita sono per il 45\% sole e per il restante pioggia, qual è la probabilità che la squadra del tifoso non perda?
+			\item Sapendo che la partita è finita in pareggio, qual è la probabilità che quel giorno abbia piovuto?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
+
+		Indicando con $W$, $D$, $L$ rispettivamente la vittoria, il pareggio e la sconfitta della squadra e con $R$ e $S$ la pioggia e il tempo asciutto, si ha
+
+		\begin{enumerate}[(a)]
+			\item \begin{align*}
+				      p(\overline{L}) & = \overbrace{p(S)\left[1 - p(L|S) \right] + p(R)\left[1 - p(L|R) \right]}^{\text{Teorema della probabilità totale}} \\
+				      & = 0.45\cdot0.9+0.55\cdot0.55 \\
+				      & = 0.7075
+			      \end{align*}
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}%\renewcommand{\qedsymbol}{$\square$}
+		\begin{enumerate}[(b)]
+			\item \begin{align*}
+				      p(R|D) & = \frac{p(D|R)p(R)}{p(D)} \\
+				      & = \frac{p(D|R)p(R)}{p(D|R)p(R)+p(D|S)p(S)} \\
+				      & = \frac{0.25\cdot0.55}{0.25\cdot0.55+0.2\cdot0.45} \\
+				      & = 0.604
+			      \end{align*}
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 4}
+
+	\begin{exercise}[\textit{Deadline} -- \pointsQd pt]
+		Uno studio di ingegneria ha recentemente vinto l'appalto per la produzione di tre progetti, A, B e C.
+
+		\medskip
+
+		Il progetto A non è vincolato a una scadenza e viene pagato 100. Il progetto B viene pagato 120 se lo studio lo finisce in tempo, e 80 se la deadline non viene rispettata; la deadline verrà rispettata con una probabilità del 50\%. Il terzo progetto, del valore di 90, verrà completato rispettando la scadenza prevista con la probabilità del 70\% e viene pagato esclusivamente se completato entro la deadline.
+
+		\medskip
+
+		Qual è la probabilità che lo studio venga pagato almeno 200?
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}%\renewcommand{\qedsymbol}{$\square$}
+		Siano A, B, C gli eventi che rappresentano il rispetto delle deadline per i progetti corrispondenti. Allora $p(A)=1$, $p(B)=0.5$, $p(C)=0.7$. Sia $T$ il pagamento totale ricevuto dall'azienda.
+
+		\medskip
+
+		Il primo progetto porta sicuramente 100 all'azienda, dunque è sufficiente che il progetto B e C combinati vengano pagati almeno 100. Se B rispetta la scadenza, si superano i 200 totali; se B non supera la scadenza, deve essere rispettata la scadenza di C.
+
+		$$p(T\geq200)=p(B)+p(\overline{B})\cdot p(C)=0.5+0.5\cdot0.7=0.85$$
+	\end{proof}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Esercizio 5}
+
+	\begin{exercise}[\textit{Crescita economica} -- \pointsQe pt]
+		Una azienda prevede che, con una probabilità del 5\%, l'economia sarà in crescita. Inoltre, c'è una probabilità del 90\% che i ricavi della azienda aumentino, se l'economia sarà in crescita. Se invece l'economia non sarà in crescita, i ricavi aumenteranno solamente con una probabilità del 40\%.
+
+		\begin{enumerate}[(a)]
+			\item Qual è la probabilità che i ricavi non aumentino?
+			\item Se i ricavi dopo un anno sono effettivamente aumentati, qual è la probabilità che l'economia sia stata in crescita?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
+		Indichiamo con $C$ l'evento ``economia in crescita'' e con $R$ l'aumento dei ricavi. Allora:
+		\begin{enumerate}[(a)]
+			\item \begin{align*}
+				      p(\overline R) = 1 - p(R) & = 1 - \big( \overbrace{p(R|C) \cdot p(C) + p(R|\overline C) \cdot p(\overline C)}^{\text{Teorema della probabilità totale}} \big) \\
+				      & = 1 - (0.9 \cdot 0.05 + 0.4 \cdot 0.95 ) \\
+				      & = 1 - 0.425 \\
+				      & = 0.575
+			      \end{align*}
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}%\renewcommand{\qedsymbol}{$\square$}
+		\begin{enumerate}[(b)]
+			\item \begin{align*}
+				      p(C|R) & = \frac{p(R|C)\cdot p(C)}{p(R)} \\
+				      & = \frac{p(R|C) \cdot p(C)}{1 - p(\overline R)} \\ %{p(R|C)\cdot p(C)+p(R|\overline C) \cdot p(\overline C)} = \\
+				      & = \frac{0.9\cdot 0.05}{0.425} \\
+				      & = 0.106
+			      \end{align*}
+		\end{enumerate}
+
+	\end{proof}
+\end{frame}
+
+\end{document}
