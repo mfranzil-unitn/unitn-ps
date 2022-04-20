@@ -1,0 +1,83 @@
+% This file requires a \documentclass{beamer} before and a \date{..} after
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{moodle}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{mathcomp}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{soul}
+\usepackage[shortlabels]{enumitem}
+
+% Global packages
+\usepackage{tikzit}
+
+\input{style.tikzstyles}
+\input{theme.tex}
+\input{lst.tex}
+
+% transparent background in slides
+\setbeamercovered{transparent}
+\setbeameroption{show notes}
+
+\newcounter{numeroes}[section]
+\newcounter{requestcounter}
+
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+
+%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
+\newtheorem{exercise}{Esercizio}
+
+\addto\captionsitalian{\renewcommand\proofname{Soluzione}}
+\renewcommand*{\proofname}{Solution}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
+\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
+%\renewcommand\qedsymbol{$\square$}
+
+\setlength{\jot}{10pt}
+
+% tikz round photos
+\newcommand{\roundpic}[4][]{
+	\tikz\node [circle, minimum width = #2,
+		path picture = {
+				\node [#1] at (path picture bounding box.center) {
+					\includegraphics[width=#3]{#4}};
+			}] {};}
+
+% Header slide
+\title[Tutorato Probabilità]
+{Tutorato di\\Calcolo delle Probabilità}
+
+\author[DISI]{%
+	\texorpdfstring{%
+		\begin{columns}
+			\column{.50\linewidth}
+			\centering
+			Camilla Righetti
+			\column{.50\linewidth}
+			\centering
+			Matteo Franzil
+		\end{columns}
+	}{DISI}
+}
+
+\institute[UniTN]{
+	\texorpdfstring{%
+		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
+	}{University of Trento}\\
+	\smallskip
+	%\hphantom{...}\\
+	Corso di Laurea in Ingegneria Informatica, delle Comunicazioni ed Elettronica
+}
