@@ -114,10 +114,14 @@
 \begin{frame}[fragile]
 	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
 
-		Indicando con $W$, $D$, $L$ rispettivamente la vittoria, il pareggio e la sconfitta della squadra e con $R$ e $S$ la pioggia e il tempo asciutto, si ha
+		Indichiamo con $W$, $D$, $L$ rispettivamente la vittoria (\textit{\textbf{w}in}), il pareggio (\textit{\textbf{d}raw}) e la sconfitta (\textit{\textbf{l}oss}) della squadra. Inoltre, con $R$  (\textit{\textbf{r}ain}) e $S$  (\textit{\textbf{s}un}) indichiamo la pioggia e il tempo asciutto.
 
+		\medskip
+
+		Piccola nota: a calcio, ``non perdere'' significa vincere oppure pareggiare.
+		
 		\begin{enumerate}[(a)]
-			\item \begin{align*}
+			\item Affinché una squadra \textit{non perda}, calcoliamo $p(\overline{L})$: \begin{align*}
 				      p(\overline{L}) & = \overbrace{p(S)\left[1 - p(L|S) \right] + p(R)\left[1 - p(L|R) \right]}^{\text{Teorema della probabilità totale}} \\
 				      & = 0.45\cdot0.9+0.55\cdot0.55 \\
 				      & = 0.7075
@@ -129,7 +133,7 @@
 \begin{frame}[fragile]
 	\begin{proof}%\renewcommand{\qedsymbol}{$\square$}
 		\begin{enumerate}[(b)]
-			\item \begin{align*}
+			\item Per come è posto il quesito (e per le richieste del primo punto), possiamo formulare la probabilità richiesta con Bayes: \begin{align*}
 				      p(R|D) & = \frac{p(D|R)p(R)}{p(D)} \\
 				      & = \frac{p(D|R)p(R)}{p(D|R)p(R)+p(D|S)p(S)} \\
 				      & = \frac{0.25\cdot0.55}{0.25\cdot0.55+0.2\cdot0.45} \\
@@ -180,10 +184,23 @@
 \end{frame}
 
 \begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\longrightarrow$}
+		Indichiamo con $C$ l'evento ``economia in crescita'' e con $R$ l'aumento dei ricavi.
+
+		Allora:
+
+		\begin{align*}
+			p(R|C) & = 0.9 \\
+			p(R|\overline{C}) & = 0.4 \\
+			p(C) & = 0.05 \\ \Rightarrow p(\overline{C}) & = 0.95
+		\end{align*}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
 	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
-		Indichiamo con $C$ l'evento ``economia in crescita'' e con $R$ l'aumento dei ricavi. Allora:
 		\begin{enumerate}[(a)]
-			\item \begin{align*}
+			\item Similarmente all'esercizio sul calcio, il Teorema della probabilità totale ci viene in aiuto: \begin{align*}
 				      p(\overline R) = 1 - p(R) & = 1 - \big( \overbrace{p(R|C) \cdot p(C) + p(R|\overline C) \cdot p(\overline C)}^{\text{Teorema della probabilità totale}} \big) \\
 				      & = 1 - (0.9 \cdot 0.05 + 0.4 \cdot 0.95 ) \\
 				      & = 1 - 0.425 \\
@@ -196,14 +213,13 @@
 \begin{frame}[fragile]
 	\begin{proof}%\renewcommand{\qedsymbol}{$\square$}
 		\begin{enumerate}[(b)]
-			\item \begin{align*}
+			\item Quando ci viene chiesta una probabilità con la condizione invertita, possiamo velocemente ri-invertirla: \begin{align*}
 				      p(C|R) & = \frac{p(R|C)\cdot p(C)}{p(R)} \\
 				      & = \frac{p(R|C) \cdot p(C)}{1 - p(\overline R)} \\ %{p(R|C)\cdot p(C)+p(R|\overline C) \cdot p(\overline C)} = \\
 				      & = \frac{0.9\cdot 0.05}{0.425} \\
 				      & = 0.106
 			      \end{align*}
 		\end{enumerate}
-
 	\end{proof}
 \end{frame}
 
