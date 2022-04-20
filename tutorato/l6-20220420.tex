@@ -1,88 +1,6 @@
 \documentclass{beamer}
 %\documentclass[handout]{beamer}
-
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{ifthen}
-\usepackage{moodle}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{makecell}
-\usepackage{tikz}
-\usepackage{url}
-\usepackage{mathtools}
-\usepackage{ulem}
-\usepackage{mathcomp}
-\usepackage[italian]{babel}
-\usepackage{amsmath,amsthm,amssymb,amsfonts}
-\usepackage{setspace}
-\usepackage{tikz}
-\usepackage{soul}
-\usepackage[shortlabels]{enumitem}
-
-% Global packagesl
-\usepackage{tikzit}
-\input{style.tikzstyles}
-
-\input{theme.tex}
-\input{lst.tex}
-
-% transparent bg
-\setbeamercovered{transparent}
-\setbeameroption{show notes}
-
-
-\newcounter{numeroes}[section]
-\newcounter{requestcounter}
-
-\DeclareUnicodeCharacter{2212}{\textminus}
-
-\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
-
-%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
-\newtheorem{exercise}{Esercizio}
-\renewcommand*{\proofname}{Soluzione}
-\renewcommand\qedsymbol{$\blacksquare$}
-
-\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
-\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
-%\renewcommand\qedsymbol{$\square$}
-
-\setlength{\jot}{10pt}
-
-% tikz round photos
-\newcommand{\roundpic}[4][]{
-	\tikz\node [circle, minimum width = #2,
-		path picture = {
-				\node [#1] at (path picture bounding box.center) {
-					\includegraphics[width=#3]{#4}};
-			}] {};}
-
-% Header slide
-\title[Tutorato Probabilità]
-{Tutorato di\\Calcolo delle Probabilità}
-
-\author[DISI]{%
-	\texorpdfstring{%
-		\begin{columns}
-			\column{.50\linewidth}
-			\centering
-			Camilla Righetti
-			\column{.50\linewidth}
-			\centering
-			Matteo Franzil
-		\end{columns}
-	}{DISI}
-}
-
-\institute[UniTN]{
-	\texorpdfstring{%
-		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
-	}{University of Trento}\\
-	\smallskip
-	%\hphantom{...}\\
-	Corso di Laurea in Ingegneria Informatica, delle Comunicazioni ed Elettronica
-}
+\input{__header.tex}
 
 \date[06/04/2022]{20 aprile 2022}
 
@@ -143,14 +61,14 @@
 
 		\medskip
 
-		La stringa pu\`o essere posizionata all'inizio della password, nel mezzo o alla fine (\texttt{cdp**}, \texttt{*cdp*} oppure \texttt{**cdp}), per un totale di 3 posizionamenti possibili.
+		La stringa pu\`o essere posizionata all'inizio della password, nel mezzo o alla fine (\texttt{cdp*}, \texttt{*cdp*} oppure \texttt{*cdp}), per un totale di 3 posizionamenti possibili.
 
 		\medskip
 
 		I rimanenti due caratteri possono essere due simboli grafici ($2^2$ possibilit\`a) oppure una lettera e un simbolo (le due lettere sono escluse, perch\'e deve essere presente almeno un simbolo, per un totale di $52\cdot2\cdot2$ modi). In totale, le password di questo tipo sono
 
 		\begin{align*}
-			m = 8 \cdot 3 \cdot \underbrace{2 \cdot 2}_{\text{simboli grafici}} + \: 8 \cdot 3 \cdot \underbrace{52 \cdot 2 \cdot 2}_{\text{lettera e simbolo}} = 5088
+			m & = \underbracket{8}_{\text{modi}} \cdot \underbracket{3}_{\text{posiz.}} \cdot \: \big( \underbrace{2 \cdot 2}_{\text{simb.}} + \underbrace{52 \cdot 2 \cdot 2}_{\text{lett+simb}} \big) = 5088
 		\end{align*}
 	\end{proof}
 \end{frame}

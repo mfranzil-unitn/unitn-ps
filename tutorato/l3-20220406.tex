@@ -1,86 +1,6 @@
 \documentclass{beamer}
 %\documentclass[handout]{beamer}
-
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{ifthen}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{makecell}
-\usepackage{tikz}
-\usepackage{url}
-\usepackage{mathtools}
-\usepackage{ulem}
-\usepackage{mathcomp}
-\usepackage[italian]{babel}
-\usepackage{amsmath,amsthm,amssymb,amsfonts}
-\usepackage{setspace}
-\usepackage{tikz}
-\usepackage{soul}
-
-% Global packagesl
-\usepackage{tikzit}
-\input{style.tikzstyles}
-
-\input{theme.tex}
-\input{lst.tex}
-
-% transparent bg
-\setbeamercovered{transparent}
-\setbeameroption{show notes}
-
-
-\newcounter{numeroes}[section]
-\newcounter{requestcounter}
-
-\DeclareUnicodeCharacter{2212}{\textminus}
-
-\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
-
-%\renewenvironment{proof}{\noindent\textbf{Soluzione:}}{}
-\newtheorem{exercise}{Esercizio}
-\renewcommand*{\proofname}{Soluzione}
-\renewcommand\qedsymbol{$\blacksquare$}
-
-\newcommand{\mean}[1]{$\mathbb{E}[#1]$}
-\newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
-%\renewcommand\qedsymbol{$\square$}
-
-
-% tikz round photos
-\newcommand{\roundpic}[4][]{
-	\tikz\node [circle, minimum width = #2,
-		path picture = {
-				\node [#1] at (path picture bounding box.center) {
-					\includegraphics[width=#3]{#4}};
-			}] {};}
-
-% Header slide
-\title[Tutorato Probabilità]
-{Tutorato di\\Calcolo delle Probabilità}
-
-\author[DISI]{%
-	\texorpdfstring{%
-		\begin{columns}
-			\column{.50\linewidth}
-			\centering
-			Camilla Righetti
-			\column{.50\linewidth}
-			\centering
-			Matteo Franzil
-		\end{columns}
-	}{DISI}
-}
-
-\institute[UniTN]{
-	\texorpdfstring{%
-		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
-	}{University of Trento}\\
-	\smallskip
-	%\hphantom{...}\\
-	Corso di Laurea in Ingegneria Informatica, delle Comunicazioni ed Elettronica
-}
-
+\input{__header.tex}
 \date[06/04/2022]{6 aprile 2022}
 
 \begin{document}
@@ -125,9 +45,9 @@
 
 	\begin{exercise}[3.1, ex. Esercizio 12\\PDF "Esercizi" su Moodle]
 		Quattro ragazzi e quattro ragazze partecipano ad una caccia al tesoro a coppie.
-		\begin{enumerate}
-			\item Se ciascuna coppia è formata da un ragazzo e da una ragazza in quanti modi diversi si può formare la quaterna di coppie?
-			\item Se ciascuna coppia è formata da persone dello stesso sesso, in quanti modi diversi si può formare la quaterna di coppie?
+		\begin{enumerate}[(a)]
+			\item Se ciascuna coppia \`e formata da un ragazzo e da una ragazza in quanti modi diversi si può formare la quaterna di coppie?
+			\item Se ciascuna coppia \` formata da persone dello stesso sesso, in quanti modi diversi si può formare la quaterna di coppie?
 			\item In quanti modi diversi si può formare la quaterna di coppie (insieme di due elementi)?
 		\end{enumerate}
 	\end{exercise}
@@ -135,7 +55,7 @@
 
 \begin{frame}[fragile]
 	\begin{proof}[Risoluzione]
-		\begin{enumerate}
+		\begin{enumerate}[(a)]
 			\item $\frac{(4 \cdot 4) \cdot (3 \cdot 3) \cdot (2 \cdot 2) \cdot (1 \cdot 1)}{4!} = \frac{16 \cdot 9 \cdot 4 \cdot 1}{24} = 4!$. Per la prima coppia, possiamo scegliere 4 ragazzi e 4 ragazze. Per la seconda, 3 e 3, e così via. Dividiamo tutto per 4!, ovvero le permutazioni possibili -- in quanto non ci interessa l'ordine e una disposizione $A_1A_2, B_1B_2, \cdots$ è sempre uguale a $B_1B_2,  A_1A_2, \cdots$.
 			\item $ (\binom{4}{2} \cdot \frac{1}{2!}) \cdot (\binom{4}{2} \cdot \frac{1}{2!})$. Per i maschi, scegliamo dai 4 disponibili 2 persone (l'altra coppia è di conseguenza vincolata). Dobbiamo contare il caso in cui le coppie sono scambiate. Stessa cosa per le femmine.
 			\item Stavolta non abbiamo vincoli legati al genere dei partecipanti delle coppie, quindi possiamo trattare il problema come una permutazione con ripetizione, ovvero: $\frac{8!}{2!2!2!2!} \cdot \frac{1}{4!}$. In altre parole, abbiamo le permutazioni di tutti gli 8 partecipanti, divise per le permutazioni delle singole coppie (in quanto $AB = BA$ per una coppia), diviso infine per le permutazioni di tutte le coppie (in quanto $1234$ e $1423$ sono equivalenti). \qedhere
@@ -171,7 +91,7 @@
 	\frametitle{Esercizio 3.2}
 	\begin{exercise}[3.2, esame 28/06/2016 degli Informatici]
 		Infine, tutti gli eventi che riguardano una linea di trasmissione ($A \rightarrow C \rightarrow B$) sono stocasticamente indipendenti da quelli dell'altra linea ($A \rightarrow D \rightarrow B$).
-		\begin{enumerate}
+		\begin{enumerate}[(a)]
 			\item Qual è la probabilità che il messaggio venga recapitato SOLO attraverso il canale $A \rightarrow C \rightarrow B$?
 			\item Qual è la probabilità che il messaggio venga recapitato attraverso il canale $A \rightarrow C \rightarrow B$?
 			\item Qual è la probabilità che il messaggio venga recapitato?
