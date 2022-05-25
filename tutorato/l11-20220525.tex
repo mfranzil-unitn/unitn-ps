@@ -1,0 +1,123 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\input{__header.tex}
+
+\date[24/05/2022]{24 maggio 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Esercizio d'esempio 1}
+	\begin{exercise}[20210524-1]
+		Consideriamo la seguente funzione:
+
+		\[
+			f(x) = 4 x^3
+		\]
+
+		Questa funzione è la \textit{pdf} della variabile aleatoria $X$ definita nel dominio $x \in [0,1]$. Definiamo una seconda variabile aleatoria $Y$ con densità:
+
+		\[
+			y = 8 \sqrt{x}
+		\]
+
+		\begin{enumerate}[(a)]
+			\item Ricavare la \textit{cdf} della variabile aleatoria $X$.
+			\item Ricavare la \textit{pdf} della variabile aleatoria $Y$.
+			\item Ricavare la \textit{cdf} della variabile aleatoria $Y$.
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
+		\begin{enumerate}[(a)]
+			\item Ricavare la \textit{cdf} è facile: integriamo la funzione dal punto $0$ fino al punto $1$.
+			      \[
+				      \int_0^1 f(x) ,dx = \int_0^1 4x^3 ,dx = x^4
+			      \]
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\longrightarrow$}
+		\begin{enumerate}[(b)]
+			\item Per ricavare la \textit{pdf} di Y, dobbiamo invertire la funzione di trasformazione $g(x) = y$. Allora abbiamo che
+			      \[
+				      g^{-1}(y) = \big(\frac{x}{8}\big)^2
+			      \]
+			      e
+			      \[
+				      \frac{dg^{-1}(y)}{dy} = \frac{1}{32} x
+			      \]
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\blacksquare$}
+		\begin{enumerate}[(b)]
+			\item Allora ora possiamo procedere con la trasformazione vera e propria. Abbiamo dunque:
+			      \[
+				      f_y(y) = f_x(g^{-1}(y)) \cdot \frac{dg^{-1}(y)}{dy} = 4 \cdot ((\frac{x}{8})^2)^3 \cdot \frac{1}{32} x = \frac{1}{2097152} x^7
+			      \]
+			      Per trovare gli estremi, verifichiamo che la funzione passa l'asse $y$ in $x = 0$, mentre si interseca con l'inversa in $x = 8$. Verifichiamo effettivamente che l'integrale da 0 a 8 di questa funzione è pari a 1.
+		\end{enumerate}
+		\begin{enumerate}[(c)]
+			\item L'ultimo punto lo si verifica trivialmente integrando la sopracitata funzione. Otteniamo $F(Y) = \frac{1}{16777216} x^8$
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Esercizio d'esempio 2}
+	\begin{exercise}[20210524-2]
+		La quantità di gin tonic versata in un bicchiere al Mercolegin si comporta come una variabile aleatoria normale, con parametri $\mu = 19 \: ml$ e $\sigma^2 = 16 \: ml^2$.
+
+		\begin{enumerate}[(a)]
+			\item Quale è la probabilità che un bicchiere di gin tonic contenga almeno $25 \: ml$ di drink?
+			\item Uno studente, terminata la seconda provetta di Calcolo delle probabilità, decide di festeggiare andando al Mercolegin per bere 3 bicchieri di gin tonic. Sapendo che ha bisogno di almeno $21 \: ml$ di gin tonic per divertirsi, ma sboccherebbe se ne bevesse più di $65 \: ml$, quale è la probabilità che si diverta senza sboccare?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Esercizio d'esempio 2}
+	\begin{exercise}[20210524-2]
+		\begin{enumerate}[(c)]
+			\item Per attirare più clientela, il Bar Domo il mercoledì successivo decide di cambiare bicchieri. Con questi nuovi bicchieri, la varianza è sempre $\sigma^2 = 16 \: ml^2$, ma la media è ignota. Degli studenti, dopo alcuni ``attenti'' calcoli, verificano che la probabilità che questi bicchieri contengano al massimo $25 \: ml$ di drink è 0,853. Quale è la media di questa nuova distribuzione?
+		\end{enumerate}
+	\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
+		\begin{enumerate}[(a)]
+			\item $p = 1 - F(\frac{25 \: ml - 19 \: ml}{\sqrt{16 \: ml^2}}) = 1 - F(\frac{6}{4}) = 1 - F(1.5) = 1 - 0.933192 = 0.066808$
+			\item Abbiamo una nuova variabile aleatoria con $\mu = 19 \cdot 3 \: ml$ e $\sigma^2 = 16 \cdot 3 \: ml^2$, quindi $\mu = 57 \: ml$ e $\sigma^2 = 48 \: ml^2$. Allora
+			      \begin{equation*}
+				      \begin{split}
+					      P(21 \le X \le 65) & = (\frac{65 \: ml - 57 \: ml}{\sqrt{48 \: ml^2}}) - F(\frac{21 \: ml - 57 \: ml}{\sqrt{48 \: ml^2}}) \\
+					      & = F(1.154701) - F(-5.196) \\
+						  & = 0.8758
+				      \end{split}
+			      \end{equation*}
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{proof}\renewcommand{\qedsymbol}{$\square$}
+		\begin{enumerate}[(c)]
+			\item Cerchiamo nella tavola $0.853$: otteniamo 1.05 (ovvero, $F(1.05) = 0.853$). Allora abbiamo $z = 1.05$. Possiamo usare la formula inversa della standardizzazione:
+			      \[
+				      z = 1.05 = \frac{25 \: ml - \mu}{\sqrt{16 \: ml^2}} \Leftrightarrow 25 -(1.05 \cdot 4) = \mu = 20.8 \: ml
+			      \]
+		\end{enumerate}
+	\end{proof}
+\end{frame}
+
+\end{document}
