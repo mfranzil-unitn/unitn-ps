@@ -1,0 +1,71 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\input{__header.tex}
+
+\date[26/05/2022]{26 maggio 2022}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Recap}
+	Cosa dobbiamo aspettarci dalla provetta?
+
+	\begin{itemize}
+		\item 5 esercizi:
+		\item \begin{itemize}
+			      \item 2 esercizi sui modelli discreti
+			      \item 2 esercizi sui modelli continui
+			      \item un esercizio jolly
+		      \end{itemize}
+		\item ...esattamente come l'anno scorso
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Modelli discreti}
+
+	\begin{itemize}
+		\item \textbf{Bernoulli}: \begin{itemize}
+			      \item 1 in caso di successo, 0 altrimenti
+			      \item probabilità di successo $p$
+			      \item $\mathbb{E}[X] = p, \mathbb{V}ar[X] = p\left(1-p\right)$
+		      \end{itemize}
+		\item \textbf{Binomiale}: \begin{itemize}
+			      \item ripetizione di n prove indipendenti
+			      \item $f(x) = \binom{n}{x} p^x (1-p)^(n-x)$
+			      \item $\mathbb{E}[X] = n p, \mathbb{V}ar[X] = n p (1-p)$
+		      \end{itemize}
+		\item \textbf{Poisson}: \begin{itemize}
+			      \item processo di Bernoulli con n grande e p piccolo
+			      \item numero medio di successi $\mu$
+			            \item$f(x) = \frac{\lambda^x}{x!} e^{-\lambda}$
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Modelli continui}
+
+	\begin{itemize}
+		\item \textbf{Uniforme}: \begin{itemize}
+			      \item probabilità uniforme su un intervallo
+			      \item $f(x) = \frac{1}{b-a}; F(x) = \frac{x-a}{b-a}$
+			      \item $\mathbb{E}[X] = \frac{a+b}{2}, \mathbb{V}ar[X] = \frac{b-a^2}{12}$
+		      \end{itemize}
+		\item \textbf{Esponenziale}: \begin{itemize}
+			      \item tempo di attesa rispetto a un evento
+			      \item è senza memoria
+			      \item $f(x) = \lambda^x e^{-\lambda}$ su valori positivi
+			      \item $F(x) = 1 - e^{-\lambda x}$
+			      \item $\mathbb{E}[X] = \frac{1}{\lambda}, \mathbb{V}ar[X] = \frac{1}{\lambda^2}$
+		      \end{itemize}
+		\item \textbf{Gaussiana}: \begin{itemize}
+			      \item millemila modi, ma lo capite dall'impostazione
+			      \item non si calcola la pdf, si usano le tavole
+			      \item $f(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{( -\frac{(x-\mu)^2}{2\sigma^2})}$
+			      \item $\mathbb{E}[X] = \mu, \mathbb{V}ar[X] = \sigma^2$
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+\end{document}
