@@ -1,0 +1,279 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\input{__header.tex}
+
+\date[18/05/2023]{18 maggio 2023}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Recap}
+	Cosa dobbiamo aspettarci dalla provetta?
+
+	\begin{itemize}
+		\item 5 esercizi:
+		 \begin{itemize}
+			      \item 2 esercizi sui modelli discreti
+			      \item 2 esercizi sui modelli continui
+			      \item un esercizio jolly
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Modelli discreti}
+
+	\begin{itemize}
+		\item \textbf{Bernoulli}: \begin{itemize}
+			      \item 1 in caso di successo, 0 altrimenti
+			      \item probabilità di successo $p$
+			      \item $\mathbb{E}[X] = p, \mathbb{V}ar[X] = p\left(1-p\right)$
+		      \end{itemize}
+		\item \textbf{Binomiale}: \begin{itemize}
+			      \item ripetizione di n prove indipendenti
+			      \item $f(x) = \binom{n}{x} p^x (1-p)^{(n-x)}$
+			      \item $\mathbb{E}[X] = n p, \mathbb{V}ar[X] = n p (1-p)$
+		      \end{itemize}
+		\item \textbf{Poisson}: \begin{itemize}
+			      \item processo di Bernoulli con n grande e p piccolo
+			      \item numero medio di successi $\mu$
+			            \item$f(x) = \frac{\lambda^x}{x!} e^{-\lambda}$
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Modelli continui (1)}
+
+	\begin{itemize}
+		\item \textbf{Uniforme}: \begin{itemize}
+			      \item probabilità uniforme su un intervallo
+			      \item $f(x) = \frac{1}{b-a}; F(x) = \frac{x-a}{b-a}$
+			      \item $\mathbb{E}[X] = \frac{a+b}{2}, \mathbb{V}ar[X] = \frac{b-a^2}{12}$
+		      \end{itemize}
+		\item \textbf{Esponenziale}: \begin{itemize}
+			      \item tempo di attesa rispetto a un evento
+			      \item è senza memoria
+			      \item $f(x) = \lambda^x e^{-\lambda}$ su valori positivi
+			      \item $F(x) = 1 - e^{-\lambda x}$
+			      \item $\mathbb{E}[X] = \frac{1}{\lambda}, \mathbb{V}ar[X] = \frac{1}{\lambda^2}$
+		      \end{itemize}
+	\end{itemize}
+
+\end{frame}
+	
+\begin{frame}[fragile]
+	\frametitle{Modelli continui (2)}
+	
+	\begin{itemize}
+		\item \textbf{Gamma}: \begin{itemize}
+			\item somma di variabili esponenziali
+			\[
+				f(x) = \lambda e^{-\lambda x} \frac{(\lambda x)^{n-1}}{\Gamma(n)}
+				\]
+			\item dove $\Gamma(n) = (n-1)!$ se $n$ è intero, altrimenti
+			\[
+				\Gamma(n) = \int_0^\infty x^{n-1} e^{-x} dx
+			\]
+			\item $\mathbb{E}[X] = \frac{n}{\lambda}, \mathbb{V}ar[X] = \frac{n}{\lambda^2}$
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Modelli continui (3)}
+
+	\begin{itemize}
+		\item \textbf{Gaussiana}: \begin{itemize}
+			      \item non si calcola la pdf, si usano le tavole
+			      \item $f(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{( -\frac{(x-\mu)^2}{2\sigma^2})}$
+			      \item $\mathbb{E}[X] = \mu, \mathbb{V}ar[X] = \sigma^2$
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Come orientarsi negli esercizi?}
+
+	\begin{itemize}
+		\item<1-4> Leggere bene il testo
+		\begin{itemize}
+			\item<2-4> Che dati vengono forniti?
+			\item<3-4> Cosa si chiede di calcolare?
+			\item<4> Il mio modello è \textbf{discreto} o \textbf{continuo}?
+		\end{itemize}
+		\item<5-7> Ripensare agli esercizi già visti
+		\begin{itemize}
+			\item<6-7> Ho già visto un esercizio simile? Che modello ho usato?
+			\item<7> Avete un formulario a disposizione, fatene buon uso!
+		\end{itemize}
+		\item<8-10> Usare la statistica a proprio favore\dots \begin{itemize}
+			\item<9-10> È difficile che ci siano due esercizi consecutivi sullo stesso modello\dots
+			\item<10> \dots { \footnotesize ma non impossibile! }
+		\end{itemize}
+		
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 1}
+
+	Alla mensa di Povo, ogni giorno vi è una grande affluenza di studenti per pranzo, nonostante la discutibile bontà dei pasti serviti. È risaputo che, in media, in un giorno l'1\% degli studenti che pranzano alla mensa di Povo la sera poi soffrirà di problemi intestinali.
+
+	\only<1>{
+		\begin{itemize}
+			\item Se in un certo giorno pranzano alla mensa 1000 studenti, qual è la probabilità che la sera almeno 10 di loro soffrano di problemi intestinali?
+		\end{itemize}
+	}
+
+	\only<2>{
+		\begin{itemize}
+			\item Se in un certo giorno pranzano alla mensa \textbf{1000 studenti}, qual è la probabilità che la sera \textbf{almeno 10} di loro soffrano di problemi intestinali?
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 1 (soluzione)}
+
+	\begin{align*}
+	    X & \sim Bin(1000, 0.01) \\
+		P(X \geq 10) & = 1 - P(X < 10) \\
+		& = 1 - \sum_{i=0}^9 \binom{1000}{i} 0.01^i 0.99^{1000-i} \\ 
+		& \approx 1 - 0.457 \\
+		& \approx 0.543
+	\end{align*}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 2}
+
+	Un gruppo di \textit{NO-TAV}\footnote{Qualunque riferimento a persone o fatti realmente accaduti è puramente casuale.}, esasperato dalla poca attenzione dedicatagli dalla politica, decide di passare alle maniere forti. Per bloccare il cantiere che presto verrà aperto, il gruppo raduna un certo numero di persone, che si disporrà in fila indiana lungo il perimetro del cantiere, impedendone l'accesso agli addetti ai lavori.
+
+	Chiaramente, le persone non possono rimanere per sempre a bloccare il cantiere. 
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 2a}
+
+	\begin{enumerate}[a]
+		\item Il tempo di permanenza di una persona nel gruppo è una variabile aleatoria $X$ con distribuzione esponenziale di parametro $\lambda = \frac{1}{2}$. Quale è la probabilità che una persona rimanga a protestare per più di 5 ore?
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 2a (soluzione)}
+
+	Le informazioni fornite sono abbastanza inequivocabili. Applichiamo direttamente le formule:
+
+	\begin{align*}
+		X & \sim Exp(\frac{1}{2}) \\
+		P(X > 5) & = 1 - P(X \leq 5) = 1 - (1 - e^{-5 \cdot 0.5}) \\
+		& = e^{-2.5} = 0.082085
+	\end{align*}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 2b}
+
+	\begin{enumerate}[b]
+		\item Tra le persone che protestano, vi è un leader, incaricato di coordinare le azioni del gruppo. Il leader, però, è un tipo piuttosto irascibile, e non è raro che, dopo un certo periodo di tempo, si stanchi e se ne vada.
+		
+		Assumendo che vi siano a disposizione tante persone per assumere il ruolo di leader (tutte che si comportano come al punto precedente), quale è la probabilità che entro 5 ore il leader venga cambiato esattamente 4 volte?
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 2b (soluzione)}
+
+	Una delle proprietà dell'esponenziale è che la somma di variabili aleatorie esponenziali indipendenti è ancora una variabile aleatoria esponenziale, con parametro pari alla somma dei parametri delle variabili sommate.
+
+	\begin{align*}
+		X_1, X_2, \dots, X_{4} & \sim Exp(\frac{1}{2}) \\
+		Y & = \sum_{i=1}^{4} X_i \\
+		Y & \sim \Gamma(n = 4, \lambda = 0.5) \\
+		P(Y \ge 5) & = 1 - P(Y < 5) = 0.242
+	\end{align*}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3}
+	Nella pittoresca cittadina di Riva del Garda, c'è un grande afflusso di turisti durante i mesi estivi. Consideriamo la distribuzione del numero di tedeschi che visitano Riva del Garda durante l'estate. Infatti, è noto che questa distribuzione segue una distribuzione gaussiana univariata.
+
+	\medskip
+
+	Si stima che il numero medio di turisti tedeschi a Riva del Garda durante l'estate sia pari a 1500, con una deviazione standard di 300.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3a}
+
+	\begin{enumerate}[a]
+		\item Calcolare la probabilità che il numero di turisti tedeschi a Riva del Garda durante l'estate sia compreso tra 1200 e 1800.
+	\end{enumerate}
+
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3a (soluzione)}
+	\begin{align*}
+		X & \sim N(1500, 300^2) = N(1500, 90000) \\
+		P (1200 \le x \le 1800) & = P(\frac{1200 - 1500}{300} \le \frac{x - 1500}{300} \le \frac{1800 - 1500}{300})  \\ & = P(-1 \le Z \le 1) = \Phi(1) - \Phi(-1) = 0.6827
+	\end{align*}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3b}
+	\begin{enumerate}[b]
+		\item I ristoranti locali necessitano di una stima abbondante del numero di turisti tedeschi per poter rifornire le cucine di un congruo numero di birre.
+		
+		La nuova media sarà comunque pari a 1500, ma quale deviazione standard dobbiamo utilizzare affinché la probabilità che il numero di turisti tedeschi sia superiore a 2200 sia pari al 10\%?
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3b (soluzione)}
+
+	\begin{align*}
+		& Y  \sim N(1500, \sigma^2) \\
+		& P(Y > 2200) = 0.1 ; P(Y \le 2200) = 0.9 \\
+		& P(\frac{Y - 1500}{\sigma} \le \frac{2200 - 1500}{\sigma}) = 0.9 \\
+		& \Phi(\frac{2200 - 1500}{\sigma}) = \Phi(\frac{700}{\sigma}) = 0.9
+	\end{align*}
+	Consultando la tabella della normale, il valore $z$ per cui $\Phi(z) = 0.9$ è $z \approx 1.28$. Quindi otteniamo $\frac{700}{\sigma} \approx 1.28$, da cui $\sigma \approx 546.88$.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3c}
+	\begin{enumerate}[c]
+		\item Grazie alla massiccia campagna di marketing del Trentino, l'estate successiva (2024) il numero medio di turisti tedeschi dovrebbe aumentare del 20\%. Quali saranno la nuova media e la deviazione standard?
+		\medskip\\
+		Nota: la v.a. di partenza è quella del punto b), precedentemente calcolata.
+	\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+	\frametitle{Esercizio 3c (soluzione)}
+
+	\begin{align*}
+		& Y \sim N(1500, 546.88^2) \\
+		& Z \sim N(\mu^*, \sigma^{*2}) \\
+		& \mu^* = 1500 + 1500 * 0.2 = 1800 \\
+	\end{align*}
+
+	La deviazione standard rimane invariata poiché l'aumento è proporzionale e non influisce sulla diffusione della distribuzione. Quindi avremo $\sigma^{*2} = 546.88^2$.
+
+\end{frame}
+
+\end{document}

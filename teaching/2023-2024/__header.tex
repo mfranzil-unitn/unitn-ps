@@ -16,14 +16,13 @@
 \usepackage{setspace}
 \usepackage{tikz}
 \usepackage{soul}
-\usepackage[shortlabels]{enumitem}
 
 % Global packages
-\usepackage{tikzit}
+\usepackage{../tikzit}
 
-\input{style.tikzstyles}
-\input{theme.tex}
-\input{lst.tex}
+\input{../style.tikzstyles}
+\input{../theme.tex}
+\input{../lst.tex}
 
 % transparent background in slides
 \setbeamercovered{transparent}
@@ -45,7 +44,7 @@
 \newcommand{\varr}[1]{$\mathbb{V}ar[#1]$}
 %\renewcommand\qedsymbol{$\square$}
 
-\setlength{\jot}{10pt}
+\setlength{\jot}{15pt}
 
 % tikz round photos
 \newcommand{\roundpic}[4][]{
@@ -56,25 +55,16 @@
 			}] {};}
 
 % Header slide
-\title[Tutorato Probabilità]
-{Tutorato di\\Calcolo delle Probabilità}
+\title[Calcolo delle Probabilità]
+{Esercitazione di\\Calcolo delle Probabilità}
 
 \author[DISI]{%
-	\texorpdfstring{%
-		\begin{columns}
-			\column{.50\linewidth}
-			\centering
-			Camilla Righetti
-			\column{.50\linewidth}
-			\centering
-			Matteo Franzil
-		\end{columns}
-	}{DISI}
+	\texorpdfstring{Matteo Franzil}{DISI}
 }
 
 \institute[UniTN]{
 	\texorpdfstring{%
-		\includegraphics[width=.6\textwidth]{drawable/logos/logo-disi.png}
+		\includegraphics[width=.6\textwidth]{../drawable/logos/logo-disi.png}
 	}{University of Trento}\\
 	\smallskip
 	%\hphantom{...}\\
