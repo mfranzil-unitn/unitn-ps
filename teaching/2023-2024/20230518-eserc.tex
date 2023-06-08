@@ -198,7 +198,7 @@
 		X_1, X_2, \dots, X_{4} & \sim Exp(\frac{1}{2}) \\
 		Y & = \sum_{i=1}^{4} X_i \\
 		Y & \sim \Gamma(n = 4, \lambda = 0.5) \\
-		P(Y \ge 5) & = 1 - P(Y < 5) = 0.242
+		P(Y < 5) & = 1 - \sum_{y=0}^{4 - 1} \frac{(0.5 \cdot 5)^y}{y!}e^{-0.5 \cdot 5} = 0.2424 
 	\end{align*}
 
 \end{frame}
