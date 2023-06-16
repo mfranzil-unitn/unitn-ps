@@ -12,11 +12,12 @@ This repo contains material about the following course:
 
 - prof. Claudio Agostinelli (A.A. 2017/2018, course taken by me)
 - prof. Giulia Boato (A.A. 2020/2021, 2021/2022, course in which I did tutoring)
+- prof. Federico Reali (A.A. 2022/2023, course in which I did teaching assistanship)
 
 **Course**:
 
 - Informatica (A.A. 2017/2018, Bachelor)
-- Ingegneria Informatica, delle Comunicazioni ed Elettronica (A.A. 2020/2021, 2021/2022, Bachelor)
+- Ingegneria Informatica, delle Comunicazioni ed Elettronica (A.A. 2020/2021 +, Bachelor)
 
 **University**: Trento
 
@@ -26,7 +27,8 @@ You can find the following material in the repo:
 
 - `code/` - R and MATLAB code used for the daily exercises of the course (A.A. 2017/2018).
 - `exercises/dispensa.pdf` - compendium of exercises provided during the tutoring (A.A. 2020/2021).
-- `tutorato/` - slides used during tutoring (A.A. 2021/2022).
+- `teaching/` - slides used during tutoring and lectures (A.A. 2021/2022 + ).
+- `reference-tables` - tables with some standard values for calculations (Gaussian and Student's t) 
 
 ## Contribute
 

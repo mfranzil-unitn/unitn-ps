@@ -1,0 +1,42 @@
+\documentclass[a4paper,addpoints]{exam}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{xifthen}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage[top=2cm,bottom=2cm,left=1cm,right=1cm]{geometry}
+\usepackage{luacode}
+\usepackage{forloop}
+\usepackage{pgffor}
+\usepackage{xspace}
+\usepackage{lettrine}
+\usepackage{pgfplots}
+\usepackage{makecell}
+
+\usetikzlibrary{positioning}
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+
+\pagestyle{headandfoot}
+\header{\footnotesize Corso di Laurea in ICE\\A.A. 2022/2023}{
+\Large\textbf{Tabelle}}{\footnotesize Federico Reali\\Matteo Franzil}
+\headrule
+\footrule
+\setlength{\columnsep}{0.25cm}
+\footer{}{Pagina \thepage}{}
+
+\clearpage
+\newpage
+\input{tabella_gaussiana}
+\clearpage
+\newpage
+\input{tabella_tstudent}
+
+\end{document}
